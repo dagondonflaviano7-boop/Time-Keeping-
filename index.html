@@ -243,7 +243,7 @@ tbody td{padding:10px 12px;white-space:nowrap;vertical-align:middle}
 .auth-form-sub{color:var(--text2);font-size:13px;margin-bottom:32px;text-align:center}
 .auth-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text3);font-size:12px}
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.kiosk-btn{width:100%;padding:12px;background:transparent;border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text2);font-family:var(--font);font-size:13px;cursor:pointer;transition:var(--transition);font-weight:500}
+.kiosk-btn{width:100%;padding:12px;background:transparent;border:1.5px solid var(--border2);border-radius:var(--r);color:var(--text2);font-family:var(--font);font-size:13px;cursor:pointer;transition:var(--transition);font-weight:500;margin-top:12px;z-index:1;position:relative}
 .kiosk-btn:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
 
 /* ====== KIOSK SCREEN ====== */
@@ -502,7 +502,130 @@ tbody td{padding:10px 12px;white-space:nowrap;vertical-align:middle}
 .ts-restday:hover td{opacity:1!important}
 
 @media print{body *{visibility:hidden!important}#page-timesheet,#page-timesheet *{visibility:visible!important}#page-timesheet{position:absolute;left:0;top:0;width:100%}.app-header,.sidebar,.ts-print-btn,.ts-footer{display:none!important}.ts-page{border:0}.ts-grid{overflow:visible}.ts-table{font-size:10px;min-width:0}}
-@media(max-width:768px){.ts-topbar{padding:6px 10px}.ts-legend{padding:3px 8px}.ts-grid{overflow:auto}}
+@media(max-width:768px){
+  .ts-topbar{padding:6px 10px;flex-wrap:wrap}
+  .ts-emp-info{flex:1 100%;min-width:100%;order:2}
+  .ts-topbar-right{order:1;flex:0}
+  .ts-legend{padding:3px 8px;font-size:9px;gap:2px}
+  .ts-legend-item{padding:1px 4px;font-size:8px}
+  .ts-grid{overflow-x:auto;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .ts-table{min-width:1400px;font-size:10px}
+  .ts-table thead th{padding:4px 2px;font-size:8px}
+  .ts-table tbody td{padding:4px 2px;font-size:9px}
+  .ts-topbar-right{gap:4px}
+  .ts-print-btn{padding:5px 10px;font-size:10px}
+  
+  /* ──── TIME CORRECTION MOBILE ──── */
+  #page-time-correction {
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Mobile form header */
+  #page-time-correction > div:first-child {
+    flex-direction: column;
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  #page-time-correction > div:first-child > div:first-child {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  #page-time-correction > div:first-child > div:last-child {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  /* Time correction form - vertical stack on mobile */
+  #tc-app-form-card {
+    flex-direction: column;
+    padding: 12px !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+  
+  #tc-app-form-card > div {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  
+  #tc-app-form-card .input {
+    width: 100%;
+    min-height: 40px;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  
+  #tc-app-form-card label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    margin-bottom: 6px !important;
+  }
+  
+  /* Time inputs - larger for mobile */
+  #tc-date,
+  #tc-timein,
+  #tc-noon-out,
+  #tc-noon-in,
+  #tc-break-out,
+  #tc-break-in,
+  #tc-timeout {
+    min-height: 40px !important;
+    font-size: 14px;
+    padding: 8px 10px !important;
+  }
+  
+  #tc-reason {
+    min-height: 50px !important;
+    font-size: 14px;
+    padding: 8px 10px !important;
+  }
+  
+  /* Date status info */
+  #tc-date-status {
+    align-self: flex-start !important;
+    padding: 8px 0 !important;
+  }
+  
+  /* Time correction table - better mobile display */
+  #page-time-correction table {
+    font-size: 10px;
+  }
+  
+  #page-time-correction thead th {
+    padding: 6px 4px !important;
+    font-size: 8px !important;
+  }
+  
+  #page-time-correction tbody td {
+    padding: 6px 4px !important;
+    font-size: 9px !important;
+  }
+  
+  /* Time correction toolbar */
+  #page-time-correction > div:nth-child(3) {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px !important;
+  }
+  
+  #page-time-correction select,
+  #page-time-correction input[type="text"] {
+    height: 32px !important;
+    font-size: 12px;
+  }
+  
+  #page-time-correction .btn-sm {
+    font-size: 11px;
+    padding: 6px 10px;
+    min-height: 32px;
+  }
+}
 .legacy-daybox{display:none}/* removed - replaced by ts-daybox */
 .legacy-app{display:none}/* removed - replaced by ts-app */
 .legacy-total-row td{background:var(--bg3)!important;border-top:2px solid var(--border2)!important;font-weight:700;height:27px}
@@ -536,8 +659,12 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
   body{font-size:13px;-webkit-text-size-adjust:100%}
   #auth-screen{position:fixed;overflow-y:auto;display:block;padding:22px 16px}
   .auth-left{display:none}
-  .auth-right{width:100%;min-height:auto;border-left:none;border:1px solid var(--border);border-radius:var(--r3);padding:28px 18px;margin:0 auto;max-width:430px}
+  .auth-right{width:100%;min-height:auto;border-left:none;border:1px solid var(--border);border-radius:var(--r3);padding:28px 18px;margin:0 auto;max-width:430px;display:flex;flex-direction:column}
   .auth-form-title{font-size:21px}.auth-form-sub{margin-bottom:22px}
+  #auth-screen .form-row{margin-bottom:12px}
+  #auth-screen .btn-primary{z-index:10;position:relative;pointer-events:auto}
+  #auth-screen .kiosk-btn{z-index:1;margin-top:16px;pointer-events:auto}
+  #auth-screen .auth-divider{margin-top:16px;margin-bottom:0}
   #app-screen{position:fixed;overflow:hidden}
   .app-header{height:auto;min-height:58px;padding:8px 10px;gap:8px;flex-wrap:nowrap}
   .mobile-menu-btn{display:inline-flex}
@@ -1209,6 +1336,10 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/></svg>
           Salary Agreements
           <span id="sal-agree-mgr-badge" class="badge badge-amber hidden" style="margin-left:auto;font-size:10px;padding:2px 7px"></span>
+        </button>
+        <button class="nav-item" onclick="showPage('gov-mandates')" data-page="gov-mandates">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 12h6"/></svg>
+          Government Mandates
         </button>
 
       </div><!-- /#nav-manager -->
@@ -2300,6 +2431,14 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
         </div>
       </div>
 
+      <!-- ===== GOVERNMENT MANDATES PAGE ===== -->
+      <div id="page-gov-mandates" class="tab-panel">
+        <div id="gov-mandates-root" style="height:100%;overflow:auto;background:var(--bg)">
+          <!-- Rendered by renderGovMandatesPage() -->
+          <div style="text-align:center;padding:60px;color:var(--text3)">Loading Government Mandates…</div>
+        </div>
+      </div>
+
       <!-- ===== SALARY AGREEMENTS PAGE (MANAGER/HR) ===== -->
       <div id="page-salary-agreements" class="tab-panel">
         <div style="padding:20px 20px 0">
@@ -2452,6 +2591,13 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
       </div>
 
       <div class="section-divider" style="margin:0 0 14px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--text2);font-weight:600">Standard Deductions</div>
+      <div style="background:var(--accent-light);border:1px solid rgba(29,92,56,.22);border-radius:var(--r);padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--text2);line-height:1.55">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+          <strong style="color:var(--accent)">Government Memo Based Auto-Deductions</strong>
+          <button type="button" class="btn btn-success btn-sm" onclick="autoComputeGovDeductions(true)">⚙ Auto Compute Gov Deductions</button>
+        </div>
+        <div>Computes SSS, PhilHealth, HDMF/Pag-IBIG, and BIR Tax. These will display in the payslip deduction column.</div>
+      </div>
       <div class="form-grid">
         <div class="form-row"><label>SSS Contribution</label><input type="number" class="input" id="sal-sss" placeholder="0.00" min="0" step="0.01"></div>
         <div class="form-row"><label>PhilHealth Contribution</label><input type="number" class="input" id="sal-philhealth" placeholder="0.00" min="0" step="0.01"></div>
@@ -2459,6 +2605,12 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
       <div class="form-grid">
         <div class="form-row"><label>Pag-IBIG Contribution</label><input type="number" class="input" id="sal-pagibig" placeholder="0.00" min="0" step="0.01"></div>
         <div class="form-row"><label>Withholding Tax</label><input type="number" class="input" id="sal-tax" placeholder="0.00" min="0" step="0.01"></div>
+      </div>
+      <div id="gov-deduction-preview" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;margin:-2px 0 12px;font-size:11px;color:var(--text2);line-height:1.45">Click <strong>Auto Compute Gov Deductions</strong> after entering Basic Monthly Salary.</div>
+      <!-- Per-payday breakdown chips -->
+      <div id="gov-perpayday-preview" style="display:none;background:var(--blue-bg,#DBEAFE);border:1px solid #93C5FD;border-radius:var(--r);padding:9px 12px;margin:-2px 0 12px;font-size:11px;color:var(--blue,#1B3FA0);line-height:1.7">
+        <div style="font-weight:700;margin-bottom:4px">📅 Semi-Monthly Deduction (Per Payday = Monthly ÷ 2)</div>
+        <div id="gov-perpayday-rows"></div>
       </div>
       <div class="form-grid">
         <div class="form-row"><label>Other Deductions</label><input type="number" class="input" id="sal-other-ded" placeholder="0.00" min="0" step="0.01"></div>
@@ -2572,7 +2724,7 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
   <div class="modal" style="width:720px;max-height:95vh">
     <div class="modal-head">
       <div class="modal-title">Payslip</div>
-      <button class="modal-close" onclick="closeModal('payslip-modal')">✕</button>
+      <div style="display:flex;align-items:center;gap:8px"><button class="btn btn-primary btn-sm" onclick="printPayslip()">🖨 Print</button><button class="modal-close" onclick="closeModal('payslip-modal')">✕</button></div>
     </div>
     <div class="modal-body" id="payslip-modal-body" style="padding:16px;background:var(--bg3)">
       <!-- Payslip paper rendered here -->
@@ -3259,6 +3411,7 @@ body.sidebar-open .mobile-sidebar-backdrop{display:block}
 </div>
 
 <script>
+// @ts-nocheck
 // ==================== FIREBASE SETUP ====================
 const firebaseConfig = {
   apiKey: "AIzaSyAZvHIfrOQJxY6uOnket5WU0oWb8_MPwYU",
@@ -3272,6 +3425,19 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+
+// Firebase RTDB connection compatibility fix:
+// Some mobile browsers, store Wi-Fi, captive portals, VPNs, and firewalls block WebSocket.
+// Forcing long-polling before creating the database instance prevents false Offline status.
+try {
+  if (firebase?.database?.INTERNAL?.forceLongPolling) {
+    firebase.database.INTERNAL.forceLongPolling();
+    console.info('[Firebase] RTDB long-polling compatibility mode enabled.');
+  }
+} catch (e) {
+  console.warn('[Firebase] Could not enable long-polling fallback:', e?.message || e);
+}
+
 const db = firebase.database();
 const fbFunctions = firebase.functions();
 
@@ -3508,34 +3674,116 @@ function startClock() {
 startClock();
 
 // ==================== FIREBASE CONNECTION MONITOR ====================
-// Uses .info/connected — built-in Firebase RTDB real-time presence node.
-// Updates the header status badge live without polling.
-(function initConnectionMonitor() {
-  const connRef = db.ref(".info/connected");
-  let firstRead = true;
-  connRef.on("value", snap => {
-    const isOnline = snap.val() === true;
-    const el    = document.getElementById("conn-status");
-    const dot   = document.getElementById("conn-dot");
-    const label = document.getElementById("conn-label");
-    if (!el) return;
-    if (firstRead && !isOnline) {
-      // Still establishing — keep "Connecting..." state for 3s before showing offline
-      setTimeout(() => {
-        if (el.classList.contains("connecting")) {
-          el.className = "offline";
-          if (label) label.textContent = "Offline";
-          toast("Firebase connection lost. Data may be stale.", "amber");
-        }
-      }, 3000);
-      firstRead = false;
+// Robust Firebase RTDB monitor with browser-network detection, reconnect handling,
+// error logging, and a manual diagnostic helper: debugFirebaseConnection().
+(function initConnectionMonitorV56() {
+  const el = () => document.getElementById('conn-status');
+  const label = () => document.getElementById('conn-label');
+  let lastOnlineState = null;
+  let offlineToastShown = false;
+  let connectionTimer = null;
+
+  function setConnState(state, text, details) {
+    const box = el();
+    const lbl = label();
+    if (!box) return;
+    box.classList.remove('online', 'offline', 'connecting');
+    box.classList.add(state);
+    box.title = details || text || '';
+    if (lbl) lbl.textContent = text;
+    if (details) console.info('[Firebase Connection]', details);
+  }
+
+  function showOfflineOnce(message) {
+    if (offlineToastShown) return;
+    offlineToastShown = true;
+    try { toast(message, 'amber'); } catch(e) {}
+  }
+
+  function runServerOffsetPing() {
+    // .info/serverTimeOffset does not require app data read permission and is useful as a lightweight RTDB ping.
+    return db.ref('.info/serverTimeOffset').once('value')
+      .then(snap => ({ ok: true, offset: snap.val() }))
+      .catch(err => ({ ok: false, error: err }));
+  }
+
+  async function markOffline(reason) {
+    const ping = await runServerOffsetPing();
+    if (ping.ok && navigator.onLine !== false) {
+      // If .info/connected is slow/false but serverTimeOffset works, the RTDB is reachable.
+      setConnState('online', 'Live', 'RTDB ping succeeded through serverTimeOffset; .info/connected was delayed.');
+      lastOnlineState = true;
+      offlineToastShown = false;
       return;
     }
-    firstRead = false;
-    el.className = isOnline ? "online" : "offline";
-    if (label) label.textContent = isOnline ? "Live" : "Offline";
-    if (!isOnline) toast("Firebase disconnected — working offline.", "amber");
-  });
+    const details = reason || (ping.error ? (ping.error.code || ping.error.message || String(ping.error)) : 'RTDB connection unavailable');
+    setConnState('offline', navigator.onLine === false ? 'No Internet' : 'Offline', details);
+    lastOnlineState = false;
+    showOfflineOnce('Firebase is offline. Check internet, Firebase rules/project status, or blocked WebSocket/RTDB URL.');
+  }
+
+  function start() {
+    if (!window.firebase || !firebase.apps?.length || !db) {
+      setConnState('offline', 'Firebase Error', 'Firebase SDK/app/database was not initialized.');
+      return;
+    }
+
+    setConnState('connecting', 'Connecting…', 'Opening Firebase Realtime Database connection...');
+
+    window.addEventListener('online', () => {
+      offlineToastShown = false;
+      setConnState('connecting', 'Connecting…', 'Browser reports internet is back; reconnecting Firebase...');
+      try { db.goOnline(); } catch(e) {}
+    });
+    window.addEventListener('offline', () => {
+      setConnState('offline', 'No Internet', 'Browser reports device is offline.');
+      showOfflineOnce('Device/browser is offline.');
+    });
+
+    try { db.goOnline(); } catch(e) { console.warn('[Firebase] goOnline failed:', e?.message || e); }
+
+    const connRef = db.ref('.info/connected');
+    connRef.on('value', async snap => {
+      const isOnline = snap.val() === true;
+      clearTimeout(connectionTimer);
+      if (isOnline) {
+        lastOnlineState = true;
+        offlineToastShown = false;
+        setConnState('online', 'Live', 'Connected to Firebase Realtime Database.');
+        return;
+      }
+
+      // Avoid false Offline during the first handshake or temporary mobile network switching.
+      if (lastOnlineState === null) {
+        setConnState('connecting', 'Connecting…', 'Waiting for Firebase RTDB first connection handshake...');
+        connectionTimer = setTimeout(() => markOffline('RTDB .info/connected stayed false after initial handshake timeout.'), 8000);
+        return;
+      }
+
+      setConnState('connecting', 'Reconnecting…', 'Firebase RTDB connection interrupted; retrying...');
+      connectionTimer = setTimeout(() => markOffline('RTDB disconnected and did not reconnect within timeout.'), 5000);
+    }, err => {
+      markOffline('RTDB .info/connected listener error: ' + (err?.code || err?.message || String(err)));
+    });
+  }
+
+  window.debugFirebaseConnection = async function() {
+    const result = {
+      browserOnline: navigator.onLine,
+      firebaseLoaded: !!window.firebase,
+      appCount: firebase?.apps?.length || 0,
+      projectId: firebaseConfig?.projectId,
+      databaseURL: firebaseConfig?.databaseURL,
+      authDomain: firebaseConfig?.authDomain,
+      currentUser: auth?.currentUser?.email || null,
+      serverTimeOffsetPing: await runServerOffsetPing()
+    };
+    console.table(result);
+    try { toast('Firebase diagnostic printed in Console (F12).', 'green'); } catch(e) {}
+    return result;
+  };
+
+  start();
 })();
 
 // ==================== AUTH ====================
@@ -5708,6 +5956,27 @@ function getBeneficiaries() {
 }
 /* ===== END ADD-EMPLOYEE HELPERS ===== */
 
+
+// ---- Add Employee: Repair Existing Firebase Auth Account Profile ----
+function cleanUndefinedDeep(obj){ if(Array.isArray(obj)) return obj.map(cleanUndefinedDeep).filter(v => v !== undefined); if(obj && typeof obj === 'object'){ const out={}; Object.keys(obj).forEach(k=>{ const v=cleanUndefinedDeep(obj[k]); if(v!==undefined) out[k]=v; }); return out; } return obj === undefined ? undefined : obj; }
+function buildAddEmployeeProfilePayloadForRepair(){
+  const firstName=document.getElementById('emp-fname')?.value.trim()||'', middleName=document.getElementById('emp-mname')?.value.trim()||'', lastName=document.getElementById('emp-lname')?.value.trim()||'', suffix=document.getElementById('emp-suffix')?.value.trim()||'';
+  const name=[firstName,middleName,lastName,suffix].filter(Boolean).join(' '), empId=document.getElementById('emp-id')?.value.trim()||'', email=document.getElementById('emp-email')?.value.trim()||'', role=document.getElementById('emp-role')?.value||'employee', dept=document.getElementById('emp-dept')?.value.trim()||'', shift=document.getElementById('emp-shift')?.value||'', position=document.getElementById('emp-position')?.value.trim()||'';
+  const restDays=Array.from(document.querySelectorAll('.rd-day:checked')).map(x=>x.value), vl=parseInt(document.getElementById('emp-vl')?.value)||15, ml=parseInt(document.getElementById('emp-ml')?.value)||60, sl=parseInt(document.getElementById('emp-sl')?.value)||5, el=parseInt(document.getElementById('emp-el')?.value)||0;
+  const approverUid=document.getElementById('emp-approver-uid')?.value||'', approver=approverUid?(_cachedApprovers||[]).find(x=>x.uid===approverUid):null;
+  return cleanUndefinedDeep({name,firstName,middleName,lastName,suffix,position,employeeId:empId,email,role,department:dept,shiftCode:shift,restDays,active:true,leaveBalances:{VL:vl,ML:ml,SL:sl,EL:el},approverId:approverUid||undefined,approverName:approver?(approver.name||approver.email):undefined,repairedAt:Date.now(),repairedBy:currentUserData?.uid||'',repairedByName:currentUserData?.name||currentUserData?.email||'',repairedFromExistingFirebaseAuth:true});
+}
+async function findExistingUserProfileByEmail(email){ if(!email) return null; try{ const snap=await db.ref('users').orderByChild('email').equalTo(email).once('value'); let found=null; snap.forEach(c=>{ if(!found) found={uid:c.key,...c.val()}; }); return found; }catch(e){ console.warn('Email profile lookup failed; continuing with manual UID repair.',e); return null; } }
+async function repairExistingAuthEmployeeProfileFromAddForm(email){
+  const existingProfile=await findExistingUserProfileByEmail(email); if(existingProfile?.uid){ toast(`Email already has a profile under users/${existingProfile.uid}. Reloading Employee Management…`,'amber'); closeModal('add-emp-modal'); loadEmployees(); return true; }
+  const uid=window.prompt('Firebase Authentication already has this email, but no employee profile was found in Realtime Database.\n\nOpen Firebase Console > Authentication > Users, copy the UID of this email, then paste the UID here to repair/create /users/{UID}.');
+  if(!uid||!uid.trim()) return false; const cleanUid=uid.trim();
+  const payload=buildAddEmployeeProfilePayloadForRepair(); payload.authUid=cleanUid; payload.uid=cleanUid;
+  if(!payload.firstName||!payload.lastName||!payload.employeeId||!payload.email){ toast('Cannot repair profile. First Name, Family Name, Employee ID, and Email are required.','amber'); return false; }
+  const existingSnap=await db.ref(`users/${cleanUid}`).once('value'); if(existingSnap.exists()){ const ok=confirm(`A Realtime Database profile already exists at users/${cleanUid}.\n\nDo you want to update/repair it using the current Add Employee form values?`); if(!ok) return false; payload.createdAt=existingSnap.val()?.createdAt||Date.now(); payload.createdBy=existingSnap.val()?.createdBy||currentUserData?.uid||''; } else { payload.createdAt=Date.now(); payload.createdBy=currentUserData?.uid||''; }
+  await db.ref(`users/${cleanUid}`).update(cleanUndefinedDeep(payload)); toast('Employee profile repaired successfully. Employee Management will reload now.','green'); closeModal('add-emp-modal'); loadEmployees(); return true;
+}
+
 async function createEmployee() {
   const firstName = document.getElementById('emp-fname').value.trim();
   const middleName = document.getElementById('emp-mname').value.trim();
@@ -5797,7 +6066,16 @@ async function createEmployee() {
     console.error('Create employee failed', e);
     let msg = e.message || String(e);
     if(e.code === 'auth/email-already-in-use') {
-      msg = 'Email already exists in Firebase Authentication. If employee is missing in Employee Management, copy that user UID from Firebase Authentication and create/repair the profile under Realtime Database > users > UID.';
+      try {
+        const repaired = await repairExistingAuthEmployeeProfileFromAddForm(email);
+        if(repaired) return;
+      } catch(repairErr) {
+        console.error('Profile repair failed', repairErr);
+        msg = 'Email already exists in Firebase Authentication, and automatic profile repair failed: ' + (repairErr.message || repairErr);
+      }
+      if(msg === (e.message || String(e))) {
+        msg = 'Email already exists in Firebase Authentication. Click Add Employee again, then paste the Firebase Auth UID when prompted so the system can create/repair Realtime Database > users > UID.';
+      }
     }
     toast('Error: '+msg,'red');
   } finally {
@@ -7370,6 +7648,47 @@ async function openSalaryModal(uid) {
 }
 
 // ---- Save Salary Info ----
+
+// ---- Philippine Government Deduction Auto-Compute + Payslip Mandate Adjustment ----
+function roundMoney(n){ return Math.round((Number(n || 0) + Number.EPSILON) * 100) / 100; }
+function money2(n){ return roundMoney(n).toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function clampNum(n, min, max){ return Math.min(Math.max(Number(n || 0), min), max); }
+function getPayPeriodsPerMonth(freq){ if(freq === 'monthly') return 1; if(freq === 'weekly') return 4; return 2; }
+function computeSSSEmployeeShare(monthlySalary){ const sal=Number(monthlySalary||0); if(sal<=0) return 0; let msc=sal<5250?5000:Math.floor((sal+250)/500)*500; msc=clampNum(msc,5000,35000); return roundMoney(msc*0.05); }
+function computePhilHealthEmployeeShare(monthlyBasicSalary){ const sal=Number(monthlyBasicSalary||0); if(sal<=0) return 0; const basis=clampNum(sal,10000,100000); return roundMoney((basis*0.05)/2); }
+function computePagibigEmployeeShare(monthlyFundSalary){ const sal=Number(monthlyFundSalary||0); if(sal<=0) return 0; if(sal<=1500) return roundMoney(sal*0.01); return roundMoney(Math.min(sal,10000)*0.02); }
+function computeMonthlyWithholdingTax(taxableMonthlyIncome){ const t=Number(taxableMonthlyIncome||0); if(t<=20833) return 0; if(t<=33332) return roundMoney((t-20833)*0.15); if(t<=66666) return roundMoney(1875+((t-33333)*0.20)); if(t<=166666) return roundMoney(8541.80+((t-66667)*0.25)); if(t<=666666) return roundMoney(33541.80+((t-166667)*0.30)); return roundMoney(183541.80+((t-666667)*0.35)); }
+function computeGovDeductions(monthlyBasicSalary, payFrequency){
+  const basic=Number(monthlyBasicSalary||0), periods=getPayPeriodsPerMonth(payFrequency||'semi-monthly');
+  const sssMonthly=computeSSSEmployeeShare(basic), philhealthMonthly=computePhilHealthEmployeeShare(basic), pagibigMonthly=computePagibigEmployeeShare(basic);
+  const taxableMonthly=Math.max(0,basic-sssMonthly-philhealthMonthly-pagibigMonthly), taxMonthly=computeMonthlyWithholdingTax(taxableMonthly);
+  return {version:'PH_GOV_MANDATE_2025_2026',periods,basicMonthly:roundMoney(basic),sssMonthly,philhealthMonthly,pagibigMonthly,taxMonthly,taxableMonthly,sssPerPeriod:roundMoney(sssMonthly/periods),philhealthPerPeriod:roundMoney(philhealthMonthly/periods),pagibigPerPeriod:roundMoney(pagibigMonthly/periods),taxPerPeriod:roundMoney(taxMonthly/periods),sourceLinks:{sss:'https://www.sss.gov.ph/sss-contribution-table/',philhealth:'https://www.philhealth.gov.ph/advisories/2025/PA2025-0002.pdf',pagibig:"https://www.pagibigfund.gov.ph/document/pdf/circulars/provident/Circular%20No.%20460%20-%20Guidelines%20on%20the%20Pag-IBIG%20Fund's%20Implementation%20of%20Increase%20in%20the%20MFS%20Effective%20February%202024.pdf",bir:'https://www.bir.gov.ph/withholdingtax'}};
+}
+function buildGovMandateAdjustmentsFromValues(basicMonthly,payFrequency,sss,philhealth,pagibig,tax){
+  const basis=computeGovDeductions(basicMonthly,payFrequency||'semi-monthly');
+  const rows=[
+    {key:'sss',label:'SSS PREMIUM',source:'SSS Contribution Table',mandated:basis.sssPerPeriod,monthly:basis.sssMonthly,applied:roundMoney(sss||0),link:basis.sourceLinks.sss},
+    {key:'philhealth',label:'PHILHEALTH PREMIUM',source:'PhilHealth Advisory 2025-0002',mandated:basis.philhealthPerPeriod,monthly:basis.philhealthMonthly,applied:roundMoney(philhealth||0),link:basis.sourceLinks.philhealth},
+    {key:'pagibig',label:'HDMF PREMIUM',source:'Pag-IBIG Circular 460',mandated:basis.pagibigPerPeriod,monthly:basis.pagibigMonthly,applied:roundMoney(pagibig||0),link:basis.sourceLinks.pagibig},
+    {key:'tax',label:'TAX WITHHELD',source:'BIR Withholding Tax Table',mandated:basis.taxPerPeriod,monthly:basis.taxMonthly,applied:roundMoney(tax||0),link:basis.sourceLinks.bir}
+  ].map(r=>({...r,adjustment:roundMoney((r.applied||0)-(r.mandated||0))}));
+  return {basis,rows,totalMandated:roundMoney(rows.reduce((s,r)=>s+(r.mandated||0),0)),totalApplied:roundMoney(rows.reduce((s,r)=>s+(r.applied||0),0)),totalAdjustment:roundMoney(rows.reduce((s,r)=>s+(r.adjustment||0),0))};
+}
+function autoComputeGovDeductions(showNotice=false){
+  const basicEl=document.getElementById('sal-basic'), freqEl=document.getElementById('sal-freq'); if(!basicEl||!freqEl) return null;
+  const basic=parseFloat(basicEl.value)||0; if(basic<=0){ if(showNotice) toast('Enter Basic Monthly Salary first before auto-computing deductions.','amber'); return null; }
+  const d=computeGovDeductions(basic,freqEl.value);
+  [['sal-sss',d.sssPerPeriod],['sal-philhealth',d.philhealthPerPeriod],['sal-pagibig',d.pagibigPerPeriod],['sal-tax',d.taxPerPeriod]].forEach(([id,val])=>{const el=document.getElementById(id); if(el) el.value=Number(val||0).toFixed(2);});
+  const prev=document.getElementById('gov-deduction-preview'); if(prev) prev.innerHTML=`Computed for <strong>${(freqEl.value||'semi-monthly').replace('-',' ')}</strong>: SSS ₱${money2(d.sssPerPeriod)}, PhilHealth ₱${money2(d.philhealthPerPeriod)}, Pag-IBIG ₱${money2(d.pagibigPerPeriod)}, Tax ₱${money2(d.taxPerPeriod)}.`;
+  if(showNotice) toast('Government deductions auto-computed. Please verify with official memos before saving.','green'); return d;
+}
+function ensureGovMandateOnPayslipData(p){
+  if(!p) return p;
+  if(!p.govMandateAdjustments) p.govMandateAdjustments=buildGovMandateAdjustmentsFromValues(p.basicMonthly||0,p.payFrequency||'semi-monthly',p.sssContrib||0,p.philhealthContrib||0,p.pagibigContrib||0,p.withholdingTax||0);
+  if(!p.govDeductionBasis) p.govDeductionBasis=p.govMandateAdjustments.basis;
+  return p;
+}
+
 async function saveSalaryInfo() {
   const uid   = document.getElementById('salary-uid').value;
   const basic = parseFloat(document.getElementById('sal-basic').value);
@@ -7393,6 +7712,8 @@ async function saveSalaryInfo() {
     philhealthContrib:  parseFloat(document.getElementById('sal-philhealth').value)    || 0,
     pagibigContrib:     parseFloat(document.getElementById('sal-pagibig').value)       || 0,
     withholdingTax:     parseFloat(document.getElementById('sal-tax').value)           || 0,
+    govDeductionBasis:  computeGovDeductions(basic, document.getElementById('sal-freq').value),
+    govMandateAdjustments: buildGovMandateAdjustmentsFromValues(basic, document.getElementById('sal-freq').value, parseFloat(document.getElementById('sal-sss').value)||0, parseFloat(document.getElementById('sal-philhealth').value)||0, parseFloat(document.getElementById('sal-pagibig').value)||0, parseFloat(document.getElementById('sal-tax').value)||0),
     otherDeduction:     parseFloat(document.getElementById('sal-other-ded').value)     || 0,
     otherDeductionLabel:document.getElementById('sal-other-ded-label').value.trim(),
     otRateMultiplier:   parseFloat(document.getElementById('sal-ot-rate').value)       || 1.25,
@@ -7566,11 +7887,21 @@ async function computePayslipData(uid, start, end) {
     - utDeduct
     - absDeduct;
 
-  const totalDeductions = (si.sssContrib        || 0)
-    + (si.philhealthContrib  || 0)
-    + (si.pagibigContrib     || 0)
-    + (si.withholdingTax     || 0)
-    + (si.otherDeduction     || 0);
+  // ── Semi-monthly gov deduction split (50% per payday) ──────────────────────
+  // For semi-monthly payroll, all government-mandated contributions stored in
+  // salaryInfo are MONTHLY amounts. Deduct only 50% each payday so the full
+  // monthly obligation is fulfilled after two paydays.
+  const _periods = getPayPeriodsPerMonth(freq);           // 2 for semi-monthly
+  const _govDiv  = _periods > 0 ? _periods : 2;          // divisor per payday
+  const roundMoney2 = v => Math.round(Number(v||0) * 100) / 100;
+
+  const perPaySss         = roundMoney2((si.sssContrib       || 0) / _govDiv);
+  const perPayPhilhealth  = roundMoney2((si.philhealthContrib|| 0) / _govDiv);
+  const perPayPagibig     = roundMoney2((si.pagibigContrib   || 0) / _govDiv);
+  const perPayTax         = roundMoney2((si.withholdingTax   || 0) / _govDiv);
+  const perPayOtherDed    = roundMoney2( si.otherDeduction   || 0);   // other deductions are kept as-is
+
+  const totalDeductions = perPaySss + perPayPhilhealth + perPayPagibig + perPayTax + perPayOtherDed;
 
   const netPay = Math.max(0, grossEarnings - totalDeductions);
 
@@ -7578,6 +7909,8 @@ async function computePayslipData(uid, start, end) {
 
   return { u, si, periodBasic, otPay, lateDeduct, utDeduct, absDeduct,
            grossEarnings, totalDeductions, netPay,
+           // Per-payday gov deduction amounts (already split)
+           perPaySss, perPayPhilhealth, perPayPagibig, perPayTax, perPayOtherDed,
            totalOTHours, totalLateMin, totalUTMin, absenceDays, leaveDays,
            hourlyRate, dailyRate,
            // Prior-period adjustment fields
@@ -7609,6 +7942,12 @@ async function previewPayslipComputation() {
         <div style="color:var(--text3)">Undertime Deduction (${(d.totalUTMin * 60).toFixed(1)} min)</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.utDeduct)}</div>
         <div style="color:var(--text3)">Absence Deduction (${d.absenceDays} day${d.absenceDays!==1?'s':''})</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.absDeduct)}</div>
         <div style="color:var(--text3)">Gross Earnings</div><div style="text-align:right;font-family:var(--mono);font-weight:700">${fmt(d.grossEarnings)}</div>
+        <div style="color:var(--text3);grid-column:1/-1;border-top:1px dashed var(--border);padding-top:4px;margin-top:2px;font-size:11px;font-weight:600">GOV. DEDUCTIONS (50% per payday)</div>
+        <div style="color:var(--text3);padding-left:8px">SSS Premium</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.perPaySss)}</div>
+        <div style="color:var(--text3);padding-left:8px">PhilHealth Premium</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.perPayPhilhealth)}</div>
+        <div style="color:var(--text3);padding-left:8px">HDMF / Pag-IBIG</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.perPayPagibig)}</div>
+        <div style="color:var(--text3);padding-left:8px">Tax Withheld</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.perPayTax)}</div>
+        ${d.perPayOtherDed ? `<div style="color:var(--text3);padding-left:8px">Other Deduction</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.perPayOtherDed)}</div>` : ''}
         <div style="color:var(--text3)">Total Deductions</div><div style="text-align:right;font-family:var(--mono);color:var(--red)">−${fmt(d.totalDeductions)}</div>
         <div style="font-weight:700;color:var(--accent)">Net Pay</div><div style="text-align:right;font-family:var(--mono);font-weight:700;color:var(--accent)">${fmt(d.netPay)}</div>
       </div>
@@ -7661,11 +8000,17 @@ async function generatePayslip() {
       adjUTMin: d.adjUTMin || 0,
       adjAbsenceDays: d.adjAbsenceDays || 0,
       adjLeaveDays: d.adjLeaveDays || 0,
-      sssContrib: d.si.sssContrib || 0,
-      philhealthContrib: d.si.philhealthContrib || 0,
-      pagibigContrib: d.si.pagibigContrib || 0,
-      withholdingTax: d.si.withholdingTax || 0,
-      otherDeduction: d.si.otherDeduction || 0,
+      // Per-payday amounts (monthly ÷ pay periods, 50% for semi-monthly)
+      sssContrib: d.perPaySss,
+      philhealthContrib: d.perPayPhilhealth,
+      pagibigContrib: d.perPayPagibig,
+      withholdingTax: d.perPayTax,
+      // Monthly source values kept for reference only
+      sssMonthly: d.si.sssContrib || 0,
+      philhealthMonthly: d.si.philhealthContrib || 0,
+      pagibigMonthly: d.si.pagibigContrib || 0,
+      withholdingTaxMonthly: d.si.withholdingTax || 0,
+      otherDeduction: d.perPayOtherDed,
       otherDeductionLabel: d.si.otherDeductionLabel || '',
       totalDeductions: d.totalDeductions,
       netPay: d.netPay,
@@ -7820,11 +8165,15 @@ async function runBulkPayslipGeneration() {
           adjOTHours: d.adjOTHours||0, adjLateMin: d.adjLateMin||0,
           adjUTMin: d.adjUTMin||0, adjAbsenceDays: d.adjAbsenceDays||0,
           adjLeaveDays: d.adjLeaveDays||0,
-          sssContrib: d.si.sssContrib||0,
-          philhealthContrib: d.si.philhealthContrib||0,
-          pagibigContrib: d.si.pagibigContrib||0,
-          withholdingTax: d.si.withholdingTax||0,
-          otherDeduction: d.si.otherDeduction||0,
+          sssContrib: d.perPaySss,
+          philhealthContrib: d.perPayPhilhealth,
+          pagibigContrib: d.perPayPagibig,
+          withholdingTax: d.perPayTax,
+          sssMonthly: d.si.sssContrib||0,
+          philhealthMonthly: d.si.philhealthContrib||0,
+          pagibigMonthly: d.si.pagibigContrib||0,
+          withholdingTaxMonthly: d.si.withholdingTax||0,
+          otherDeduction: d.perPayOtherDed,
           otherDeductionLabel: d.si.otherDeductionLabel||'',
           totalDeductions: d.totalDeductions,
           netPay: d.netPay,
@@ -7890,6 +8239,14 @@ async function regeneratePayslip(uid, psKey) {
       adjOTHours: d.adjOTHours||0, adjLateMin: d.adjLateMin||0,
       adjUTMin: d.adjUTMin||0, adjAbsenceDays: d.adjAbsenceDays||0,
       adjLeaveDays: d.adjLeaveDays||0,
+      sssContrib: d.perPaySss,
+      philhealthContrib: d.perPayPhilhealth,
+      pagibigContrib: d.perPayPagibig,
+      withholdingTax: d.perPayTax,
+      sssMonthly: d.si.sssContrib || 0,
+      philhealthMonthly: d.si.philhealthContrib || 0,
+      pagibigMonthly: d.si.pagibigContrib || 0,
+      withholdingTaxMonthly: d.si.withholdingTax || 0,
       regeneratedAt: Date.now(),
       regeneratedBy: currentUserData?.name || '',
       previousNetPay: existing.netPay
@@ -7912,90 +8269,114 @@ async function regeneratePayslip(uid, psKey) {
 
 // ---- Build payslip HTML paper ----
 function buildPayslipHTML(p) {
-  const fmt   = v => `₱ ${Number(v||0).toLocaleString('en-PH',{minimumFractionDigits:2})}`;
-  const fmtD  = s => s ? new Date(s+'T12:00:00').toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'}) : '—';
-  const fmtTs = ts => ts ? new Date(ts).toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'}) : '—';
-  const row   = (label, val, cls='') =>
-    `<div class="payslip-row"><span class="payslip-row-label">${label}</span><span class="payslip-row-val ${cls}">${val}</span></div>`;
+  p = ensureGovMandateOnPayslipData(p || {});
+  const n = v => Number(v || 0);
+  const fmt = v => n(v).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const fmtD = s => s ? new Date(s+'T12:00:00').toLocaleDateString('en-PH',{month:'2-digit',day:'2-digit',year:'numeric'}) : '—';
+  const negFmt = v => n(v) > 0 ? `(${fmt(v)})` : '';
+  const td = 'border:1px solid #111;padding:2px 4px;vertical-align:top;line-height:1.15;';
+  const th = 'border:1px solid #111;padding:1px 4px;text-align:center;font-weight:700;background:#f4f4f4;line-height:1.1;';
+  const label = 'font-weight:700;color:#0f2a44;';
+  const amt = 'text-align:right;font-family:Arial, sans-serif;white-space:nowrap;';
+  const small = 'font-size:10px;color:#333;';
 
-  let earningsHTML = row('Basic Pay (period)', fmt(p.periodBasic));
-  if(p.transAllowance)  earningsHTML += row('Transportation Allowance', fmt(p.transAllowance));
-  if(p.mealAllowance)   earningsHTML += row('Meal Allowance', fmt(p.mealAllowance));
-  if(p.otherAllowance)  earningsHTML += row(p.otherAllowanceLabel || 'Other Allowance', fmt(p.otherAllowance));
-  if(p.otPay > 0)       earningsHTML += row(`OT Pay (${(p.totalOTHours||0).toFixed(2)} hrs)`, fmt(p.otPay));
-  if(p.lateDeduct > 0)  earningsHTML += row(`Late Deduction (${p.totalLateMin||0} min)`, `−${fmt(p.lateDeduct)}`, 'deduction');
-  if(p.utDeduct > 0)    earningsHTML += row(`Undertime Deduction (${((p.totalUTMin||0) * 60).toFixed(1)} min)`, `−${fmt(p.utDeduct)}`, 'deduction');
-  if(p.absDeduct > 0)   earningsHTML += row(`Absence Deduction (${p.absenceDays||0} day${p.absenceDays!==1?'s':''})`, `−${fmt(p.absDeduct)}`, 'deduction');
+  const company = p.companyName || 'WATSONS (PHILS)';
+  const branch = p.branch || p.store || p.officeLocation || '';
+  const dept = p.department || '';
+  const employeeNo = p.employeeId || '—';
+  const employeeName = (p.employeeName || '—').toUpperCase();
+  const basicRate = n(p.basicMonthly);
+  const payrollPeriod = `${fmtD(p.periodStart)} - ${fmtD(p.periodEnd)}`;
+  const payday = fmtD(p.payday || p.payDate || p.periodEnd);
 
-  let deductHTML = '';
-  if(p.sssContrib)        deductHTML += row('SSS Contribution', `−${fmt(p.sssContrib)}`, 'deduction');
-  if(p.philhealthContrib) deductHTML += row('PhilHealth Contribution', `−${fmt(p.philhealthContrib)}`, 'deduction');
-  if(p.pagibigContrib)    deductHTML += row('Pag-IBIG Contribution', `−${fmt(p.pagibigContrib)}`, 'deduction');
-  if(p.withholdingTax)    deductHTML += row('Withholding Tax', `−${fmt(p.withholdingTax)}`, 'deduction');
-  if(p.otherDeduction)    deductHTML += row(p.otherDeductionLabel || 'Other Deduction', `−${fmt(p.otherDeduction)}`, 'deduction');
+  const regularPay = n(p.periodBasic);
+  const otPay = n(p.otPay);
+  const otHours = n(p.totalOTHours);
+  const lateUtDeduct = n(p.lateDeduct) + n(p.utDeduct);
+  const absenceDeduct = n(p.absDeduct);
+  const attendanceAdjust = n(p.adjOTHours) || n(p.adjLateMin) || n(p.adjUTMin) || n(p.adjAbsenceDays) || (p.adjDetails||[]).length;
+  const grossEarnings = n(p.grossEarnings);
 
-  return `<div class="payslip-paper" id="payslip-printable">
-    <div class="payslip-header">
-      <div>
-        <div class="payslip-company">TimeKeep <span style="color:#A7F3C0">Pro</span></div>
-        <div class="payslip-title">Payslip / Earnings Statement</div>
-      </div>
-      <div class="payslip-period">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:4px">Pay Period</div>
-        <div style="font-weight:600;font-size:13px">${fmtD(p.periodStart)}</div>
-        <div style="font-size:12px;color:#555">to ${fmtD(p.periodEnd)}</div>
-        <div style="font-size:11px;color:#999;margin-top:4px">Generated: ${fmtTs(p.generatedAt)}</div>
-      </div>
-    </div>
-    <div class="payslip-emp-row">
-      <div><div class="payslip-emp-field">Employee Name</div><div class="payslip-emp-val">${p.employeeName||'—'}</div></div>
-      <div><div class="payslip-emp-field">Employee ID</div><div class="payslip-emp-val">${p.employeeId||'—'}</div></div>
-      <div><div class="payslip-emp-field">Department</div><div class="payslip-emp-val">${p.department||'—'}</div></div>
-      <div><div class="payslip-emp-field">Pay Frequency</div><div class="payslip-emp-val" style="text-transform:capitalize">${(p.payFrequency||'').replace('-',' ')}</div></div>
-    </div>
+  const sss = n(p.sssContrib);
+  const philhealth = n(p.philhealthContrib);
+  const hdmf = n(p.pagibigContrib);
+  const tax = n(p.withholdingTax);
+  const otherDed = n(p.otherDeduction);
+  const totalDeductions = n(p.totalDeductions);
+  const netPay = n(p.netPay);
+  const govAdj = null; // variance section removed
+  const govVariance = 0;
 
-    <div class="payslip-section-title">Earnings & Deductions from Attendance</div>
-    ${earningsHTML}
-    <div class="payslip-row" style="margin-top:6px;border-top:1px solid #ccc;padding-top:8px">
-      <span style="font-weight:700">Gross Earnings</span>
-      <span class="payslip-row-val" style="font-weight:700">${fmt(p.grossEarnings)}</span>
-    </div>
+  const dedRows = [
+    ['SSS PREMIUM', sss],
+    ['PHILHEALTH PREMIUM', philhealth],
+    ['HDMF PREMIUM', hdmf],
+    ['TAX WITHHELD', tax]
+  ];
+  if(otherDed) dedRows.push([String(p.otherDeductionLabel || 'OTHER DEDUCTION').toUpperCase(), otherDed]);
 
-    ${p.hasAdjustments ? `
-    <div class="payslip-section-title" style="color:var(--amber,#92580A)">&#9679; Prior Period Adjustments</div>
-    <div style="font-size:10.5px;color:var(--text3,#999);margin:-6px 0 8px">Late-filed timesheets approved during this pay period</div>
-    ${(p.adjDetails||[]).map(a => {
-      const fmtAdj = v => `₱ ${Number(v||0).toLocaleString('en-PH',{minimumFractionDigits:2})}`;
-      const d = new Date(a.date+'T12:00:00').toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'});
-      const type = (a.type||'correction').replace(/_/g,' ');
-      let lines = `<div class="payslip-row" style="font-size:11px;color:var(--text2,#57534E)"><span class="payslip-row-label" style="font-style:italic">${type} · ${d}</span><span></span></div>`;
-      if(a.otHours>0)  lines += `<div class="payslip-row" style="font-size:11px"><span class="payslip-row-label" style="padding-left:12px">↳ OT Pay (${a.otHours.toFixed(2)} hrs)</span><span class="payslip-row-val" style="color:var(--green,#1D5C38)">${fmtAdj(a.otHours * (p.hourlyRate||0) * (p.otMult||1.25))}</span></div>`;
-      if(a.lateMin>0)  lines += `<div class="payslip-row" style="font-size:11px"><span class="payslip-row-label" style="padding-left:12px">↳ Late Deduction (${a.lateMin} min)</span><span class="payslip-row-val deduction">−${fmtAdj((a.lateMin/60)*(p.hourlyRate||0))}</span></div>`;
-      if(a.utMin>0)    lines += `<div class="payslip-row" style="font-size:11px"><span class="payslip-row-label" style="padding-left:12px">↳ Undertime (${(a.utMin*60).toFixed(1)} min)</span><span class="payslip-row-val deduction">−${fmtAdj(a.utMin*(p.hourlyRate||0))}</span></div>`;
-      if(a.absence>0)  lines += `<div class="payslip-row" style="font-size:11px"><span class="payslip-row-label" style="padding-left:12px">↳ Absence Deduction (${a.absence} day${a.absence!==1?'s':''})</span><span class="payslip-row-val deduction">−${fmtAdj(a.absence*(p.dailyRate||0))}</span></div>`;
-      if(a.leave)      lines += `<div class="payslip-row" style="font-size:11px"><span class="payslip-row-label" style="padding-left:12px">↳ Leave Applied</span><span class="payslip-row-val" style="color:var(--cyan,#0A6E87)">covered</span></div>`;
-      return lines;
-    }).join('')}` : ''}
+  return `<div class="payslip-paper" id="payslip-printable" style="background:#fff;color:#111;max-width:1100px;margin:0 auto;padding:10px;border:1px solid #999;border-radius:0;font-family:Arial, Helvetica, sans-serif;font-size:12px;line-height:1.15">
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;border:2px solid #111">
+      <colgroup><col style="width:18%"><col style="width:18%"><col style="width:28%"><col style="width:18%"><col style="width:18%"></colgroup>
+      <tr>
+        <td rowspan="3" style="${td}">
+          <div style="font-weight:700;color:#0f2a44">${company}</div>
+          <div style="text-align:center;margin-top:8px;font-size:13px">ACTIVE</div>
+          <div style="text-align:center;font-size:18px;font-weight:800;letter-spacing:.5px">PAYSLIP</div>
+        </td>
+        <td style="${td}"><span style="${small}">BRANCH</span><br><b>${branch}</b></td>
+        <td style="${td}"><span style="${small}">DEPARTMENT</span><br><b>${dept}</b></td>
+        <td style="${td}"><span style="${small}">EMPLOYEE NUMBER</span></td>
+        <td style="${td}${amt}"><b>${employeeNo}</b></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="${td}"><span style="${small}">EMPLOYEE NAME</span><br><b>${employeeName}</b></td>
+        <td style="${td}"><span style="${small}">BASIC RATE</span></td>
+        <td style="${td}${amt}"><b>${fmt(basicRate)}</b></td>
+      </tr>
+      <tr>
+        <td style="${td}"><span style="${small}">PAYROLL PERIOD</span></td>
+        <td style="${td}"><b>${payrollPeriod}</b></td>
+        <td style="${td}"><span style="${small}">PAYDAY</span><br><b>${payday}</b></td>
+        <td style="${td}${amt}"><span style="${small}">NET PAY</span><br><b>${fmt(netPay)}</b></td>
+      </tr>
+    </table>
 
-    ${deductHTML ? `<div class="payslip-section-title">Standard Deductions</div>${deductHTML}` : ''}
-
-    <div class="payslip-total-row">
-      <span style="font-size:14px;font-weight:600">NET PAY</span>
-      <span class="payslip-total-val">${fmt(p.netPay)}</span>
-    </div>
-
-    ${p.remarks ? `<div style="margin-top:12px;font-size:12px;color:#666;font-style:italic">Note: ${p.remarks}</div>` : ''}
-
-    <div class="payslip-footer">
-      <div>
-        <div class="payslip-sig"></div>
-        <div>Prepared by</div>
-      </div>
-      <div style="text-align:right">
-        <div class="payslip-sig"></div>
-        <div>Received by</div>
-      </div>
-    </div>
+    <table style="width:100%;border-collapse:collapse;table-layout:fixed;border-left:2px solid #111;border-right:2px solid #111;border-bottom:2px solid #111">
+      <colgroup><col style="width:44%"><col style="width:8%"><col style="width:10%"><col style="width:38%"></colgroup>
+      <tr><th colspan="3" style="${th}">EARNINGS</th><th style="${th}">DEDUCTIONS</th></tr>
+      <tr>
+        <td colspan="3" style="${td};height:200px">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <tr><td style="${label}">REGULAR PAY</td><td></td><td style="${amt}"><b>${fmt(regularPay)}</b></td></tr>
+            <tr><td colspan="3" style="height:16px"></td></tr>
+            <tr><td style="${label}">OVERTIME PAY</td><td></td><td></td></tr>
+            <tr><td style="padding-left:10px;${label}">REGULAR</td><td style="${amt}">${otHours ? fmt(otHours) : ''}</td><td style="${amt}">${otPay ? fmt(otPay) : ''}</td></tr>
+            <tr><td style="padding-left:10px;${label}">REST DAY</td><td></td><td></td></tr>
+            <tr><td style="padding-left:10px;${label}">SPECIAL</td><td></td><td></td></tr>
+            <tr><td style="padding-left:10px;${label}">SPECIAL REST</td><td></td><td></td></tr>
+            <tr><td style="padding-left:10px;${label}">LEGAL</td><td></td><td></td></tr>
+            <tr><td style="padding-left:10px;${label}">LEGAL REST</td><td></td><td></td></tr>
+            <tr><td style="padding-left:10px;${label}">NIGHT DIFF</td><td></td><td></td></tr>
+            <tr><td style="${label}">(LESS) ABSENCES</td><td></td><td style="${amt}">${negFmt(absenceDeduct)}</td></tr>
+            <tr><td style="padding-left:10px;${label}">LATE/UNDERTIME</td><td></td><td style="${amt}">${negFmt(lateUtDeduct)}</td></tr>
+            <tr><td style="${label}">ADD (LESS) ADJUSTMENTS</td><td></td><td style="${amt}">${attendanceAdjust ? 'included' : ''}</td></tr>
+          </table>
+        </td>
+        <td style="${td};height:200px">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            ${dedRows.map(([l,a]) => `<tr><td style="${label}">${l}</td><td style="${amt}"><b>${fmt(a)}</b></td></tr>`).join('')}
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="${td};font-weight:700">TOTAL EARNINGS</td>
+        <td colspan="2" style="${td}${amt};font-weight:700">${fmt(grossEarnings)}</td>
+        <td style="${td};padding:0">
+          <table style="width:100%;border-collapse:collapse"><tr><td style="border-right:1px solid #111;padding:2px 4px;font-weight:700">TOTAL DEDUCTIONS</td><td style="padding:2px 4px;text-align:right;font-weight:700">${fmt(totalDeductions)}</td></tr></table>
+        </td>
+      </tr>
+    </table>
   </div>`;
 }
 
@@ -8003,7 +8384,7 @@ function buildPayslipHTML(p) {
 function viewPayslip(uid, psKey) {
   db.ref(`payslips/${uid}/${psKey}`).once('value').then(snap => {
     if(!snap.exists()){ toast('Payslip not found','red'); return; }
-    const p = snap.val();
+    const p = ensureGovMandateOnPayslipData(snap.val());
     document.getElementById('payslip-modal-body').innerHTML = buildPayslipHTML(p);
     showModal('payslip-modal');
   });
@@ -8013,52 +8394,605 @@ function viewPayslip(uid, psKey) {
 function printPayslip() {
   const el = document.getElementById('payslip-printable');
   if(!el){ toast('No payslip to print','amber'); return; }
-  const w = window.open('','_blank','width=800,height=700');
+  const w = window.open('','_blank','width=1100,height=700');
   w.document.write(`<!DOCTYPE html><html><head><title>Payslip</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <style>
-      body{margin:0;padding:24px;font-family:'DM Sans',sans-serif;background:#f5f5f5}
-      .payslip-paper{background:#fff;color:#111;max-width:680px;margin:0 auto;padding:32px 36px;border:1px solid #ddd;border-radius:8px;font-size:13px}
-      .payslip-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #1A6B3A}
-      .payslip-company{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#1A6B3A;letter-spacing:-1px}
-      .payslip-title{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
-      .payslip-period{text-align:right;font-size:12px;color:#555}
-      .payslip-emp-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:#f8f9fa;border-radius:6px;padding:12px 14px;margin-bottom:16px}
-      .payslip-emp-field{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
-      .payslip-emp-val{font-size:13px;font-weight:600;color:#111}
-      .payslip-section-title{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#1A6B3A;font-weight:700;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid #e0e0e0}
-      .payslip-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;border-bottom:1px dashed #eee}
-      .payslip-row:last-child{border-bottom:none}
-      .payslip-row-val{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#111}
-      .payslip-row-val.deduction{color:#C0392B}
-      .payslip-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#1A6B3A;border-radius:6px;margin-top:12px;color:#fff}
-      .payslip-total-val{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700}
-      .payslip-footer{margin-top:20px;padding-top:12px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:flex-end;font-size:11px;color:#888}
-      .payslip-sig{border-top:1px solid #999;width:150px;padding-top:4px;text-align:center;font-size:10px;color:#777;margin-top:24px}
-      @media print{body{padding:0;background:#fff}.payslip-paper{border:none;box-shadow:none}}
-    
-
-/* =========================================================
-   RECALLED REQUEST VISUAL INDICATOR + APPROVAL CENTER FINAL FIX v10.17
-========================================================= */
-:root{ --st-recall:#64748B; --st-recall-bg:#E2E8F0; --st-recall-soft:#F1F5F9; }
-.recall-chip,.req-tag-recall{
-  position:relative!important;display:inline-flex!important;align-items:center!important;gap:3px!important;
-  background:var(--st-recall-bg)!important;color:var(--st-recall)!important;border:1px dashed var(--st-recall)!important;
-  text-decoration:line-through!important;font-weight:800!important;opacity:.96!important;box-shadow:0 0 0 2px rgba(100,116,139,.10)!important;
-}
-.recall-mini-icon{display:inline-flex;align-items:center;justify-content:center;width:12px;height:12px;border-radius:999px;background:var(--st-recall)!important;color:#fff!important;font-size:9px!important;line-height:1!important;text-decoration:none!important;flex-shrink:0;}
-.recall-indicator-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;border:1px dashed var(--st-recall);background:var(--st-recall-bg);color:var(--st-recall);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.35px;white-space:nowrap;}
-.recall-indicator-pill::before{content:'↩';font-weight:900;color:#fff;background:var(--st-recall);border-radius:999px;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;}
-tr.recall-row td,tr.recall-muted td{background:linear-gradient(90deg,rgba(226,232,240,.92),rgba(248,250,252,.82))!important;color:var(--st-recall)!important;}
-tr.recall-row td:first-child,tr.recall-muted td:first-child,.ts-row-recall td:first-child{border-left:5px solid var(--st-recall)!important;}
-.recall-row-watermark{position:relative;}
-.recall-row-watermark::after{content:'RECALLED';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:900;letter-spacing:1px;color:rgba(100,116,139,.22);pointer-events:none;}
-.status-recalled-strong,.badge-recall{background:var(--st-recall-bg)!important;color:var(--st-recall)!important;border:1px dashed var(--st-recall)!important;font-weight:800!important;}
-.approval-debug-note{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.35;}
-
-</style>
+      @page{size:landscape;margin:12mm 14mm}
+      body{margin:0;padding:16px;font-family:Arial,Helvetica,sans-serif;background:#fff}
+      .payslip-paper{background:#fff;color:#111;max-width:100%;margin:0 auto;padding:10px;font-size:12px}
+      @media print{body{padding:0;background:#fff}.payslip-paper{border:none}}
+    </style>
   </head><body>${el.outerHTML}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+</script>
+<!-- ===== GOVERNMENT MANDATED DEDUCTION SETUP MODULE ===== -->
+<script>
+// @ts-nocheck
+(function(){
+  'use strict';
+  if(window.__govMandatesModuleLoaded) return;
+  window.__govMandatesModuleLoaded = true;
+
+  // ── Default mandate config ──────────────────────────────────────────────
+  const GOV_MANDATE_DEFAULTS = {
+    sss:        { enabled:true,  label:'SSS',        freq:'semi-monthly', autoCompute:true, exemptOption:true, employeeRate:0.05,  employerRate:0.095, effectiveDate:'2025-01-01' },
+    philhealth: { enabled:true,  label:'PhilHealth',  freq:'semi-monthly', autoCompute:true, exemptOption:true, employeeRate:0.025, employerRate:0.025, effectiveDate:'2025-01-01' },
+    pagibig:    { enabled:true,  label:'Pag-IBIG',    freq:'semi-monthly', autoCompute:true, exemptOption:true, employeeRate:0.02,  employerRate:0.02,  effectiveDate:'2025-01-01' },
+    tax:        { enabled:true,  label:'Withholding Tax', freq:'semi-monthly', autoCompute:true, exemptOption:true, employeeRate:null, employerRate:null, effectiveDate:'2025-01-01' }
+  };
+
+  const GM_PATH = 'govMandateSetup';
+
+  // ── Helpers ─────────────────────────────────────────────────────────────
+  const fmt2 = v => Number(v||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const money = v => `₱ ${fmt2(v)}`;
+  const toast = (msg,type='green') => { if(window.toast) window.toast(msg,type); else console.log(msg); };
+
+  // ── Load config from Firebase ────────────────────────────────────────────
+  async function loadGovMandateConfig() {
+    try {
+      const snap = await db.ref(GM_PATH).once('value');
+      const saved = snap.val() || {};
+      return Object.fromEntries(
+        Object.keys(GOV_MANDATE_DEFAULTS).map(k => [k, { ...GOV_MANDATE_DEFAULTS[k], ...(saved[k]||{}) }])
+      );
+    } catch(e) {
+      return { ...GOV_MANDATE_DEFAULTS };
+    }
+  }
+
+  // ── Save config to Firebase ──────────────────────────────────────────────
+  async function saveGovMandateConfig(config) {
+    await db.ref(GM_PATH).set({ ...config, updatedAt: Date.now(), updatedBy: currentUserData?.name||'' });
+  }
+
+  // ── Compute per-payday amount ────────────────────────────────────────────
+  function perPayday(monthlyAmt, freq) {
+    const periods = freq === 'monthly' ? 1 : freq === 'weekly' ? 4 : 2;
+    return Math.round((Number(monthlyAmt||0) / periods) * 100) / 100;
+  }
+
+  // ── Render Government Mandates page ─────────────────────────────────────
+  window.renderGovMandatesPage = async function() {
+    const root = document.getElementById('gov-mandates-root');
+    if(!root) return;
+    root.innerHTML = '<div style="text-align:center;padding:60px;color:var(--text3)">Loading…</div>';
+
+    const cfg = await loadGovMandateConfig();
+    window.__govMandatesCfg = cfg;
+
+    const deductionKeys = ['sss','philhealth','pagibig','tax'];
+    const deductionLabels = { sss:'SSS Premium', philhealth:'PhilHealth Premium', pagibig:'Pag-IBIG / HDMF Premium', tax:'Withholding Tax' };
+    const deductionIcons  = { sss:'🏛', philhealth:'💊', pagibig:'🏠', tax:'📋' };
+    const deductionColors = { sss:'var(--accent)', philhealth:'var(--blue)', pagibig:'var(--amber)', tax:'var(--purple)' };
+    const deductionBg    = { sss:'var(--green-bg)', philhealth:'var(--blue-bg)', pagibig:'var(--amber-bg)', tax:'var(--purple-bg)' };
+
+    // Load current global config amounts from Firebase for display
+    let globalAmounts = {};
+    try {
+      const snap = await db.ref(GM_PATH+'/globalMonthlyAmounts').once('value');
+      globalAmounts = snap.val() || {};
+    } catch(e) {}
+
+    const cardHTML = deductionKeys.map(key => {
+      const c = cfg[key] || GOV_MANDATE_DEFAULTS[key];
+      const monthly = globalAmounts[key] || 0;
+      const perPay  = perPayday(monthly, c.freq || 'semi-monthly');
+      const freq = c.freq || 'semi-monthly';
+      const freqLabel = freq==='monthly'?'Monthly':freq==='weekly'?'Weekly':'Semi-Monthly';
+      const enabledBadge = c.enabled
+        ? `<span class="badge badge-green" style="font-size:9px">ACTIVE</span>`
+        : `<span class="badge badge-gray" style="font-size:9px">DISABLED</span>`;
+
+      return `
+      <div style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r2);padding:0;box-shadow:var(--shadow);overflow:hidden">
+        <!-- Card header -->
+        <div style="background:${deductionBg[key]};border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:10px">
+          <div style="font-size:22px">${deductionIcons[key]}</div>
+          <div style="flex:1">
+            <div style="font-weight:700;font-size:14px;color:${deductionColors[key]}">${deductionLabels[key]}</div>
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">${freqLabel} · ${c.autoCompute?'Auto-Compute':'Manual'}</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            ${enabledBadge}
+          </div>
+        </div>
+        <!-- Amount display -->
+        <div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;text-align:center">
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Monthly Amount</div>
+            <div style="font-family:var(--mono);font-weight:700;font-size:16px;color:var(--text);margin-top:4px">${money(monthly)}</div>
+            <div style="font-size:9px;color:var(--text3);margin-top:2px">Employee Share</div>
+          </div>
+          <div style="background:${deductionBg[key]};border:1px solid ${deductionColors[key]}33;border-radius:var(--r);padding:10px 12px;text-align:center">
+            <div style="font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:${deductionColors[key]}">Per Payday (÷2)</div>
+            <div style="font-family:var(--mono);font-weight:800;font-size:16px;color:${deductionColors[key]};margin-top:4px">${money(perPay)}</div>
+            <div style="font-size:9px;color:${deductionColors[key]};margin-top:2px">Deducted Each 15 Days</div>
+          </div>
+        </div>
+        <!-- Settings row -->
+        <div style="padding:0 18px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <div style="font-size:10px;color:var(--text3)">
+            Effective: <strong>${c.effectiveDate||'—'}</strong> &nbsp;·&nbsp;
+            Freq: <strong>${freqLabel}</strong> &nbsp;·&nbsp;
+            ${c.exemptOption?'Exempt option: <strong>ON</strong>':'No exempt'}
+          </div>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <button class="btn btn-ghost btn-xs" onclick="openGovMandateEdit('${key}')">⚙ Configure</button>
+            <button class="btn btn-${c.enabled?'danger':'success'} btn-xs" onclick="toggleGovMandate('${key}',${!c.enabled})">${c.enabled?'Disable':'Enable'}</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Build formula summary
+    const totalMonthly = deductionKeys.reduce((s,k) => s+(globalAmounts[k]||0), 0);
+    const totalPerPay  = deductionKeys.reduce((s,k) => s+perPayday(globalAmounts[k]||0, cfg[k]?.freq||'semi-monthly'), 0);
+
+    root.innerHTML = `
+    <div style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+      <!-- Top bar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:linear-gradient(135deg,#fff 60%,#f0f7f3 100%);border-bottom:1px solid var(--border);flex-shrink:0;gap:10px">
+        <div>
+          <div style="font-family:var(--display);font-size:18px;font-weight:800;letter-spacing:-.3px;color:var(--text)">Government Mandates</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px">Centralized SSS, PhilHealth, Pag-IBIG & Withholding Tax setup for semi-monthly payroll</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="background:var(--green-bg);border:1px solid var(--accent);border-radius:var(--r);padding:6px 14px;font-size:11px;font-family:var(--mono);color:var(--accent);font-weight:600">
+            Semi-Monthly Formula: Monthly ÷ 2 = Per Payday
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="renderGovMandatesPage()">↻ Refresh</button>
+          <button class="btn btn-primary btn-sm" onclick="openGlobalMandateAmounts()">🌐 Set Global Amounts</button>
+        </div>
+      </div>
+
+      <!-- Formula banner -->
+      <div style="background:var(--blue-bg,#DBEAFE);border-bottom:1px solid #93C5FD;padding:10px 18px;font-size:12px;color:var(--blue,#1B3FA0);flex-shrink:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span>📅 <strong>Payroll schedule: every 15 days (semi-monthly)</strong> — Government deductions are split 50% per payday.</span>
+        <span>Formula: <strong>Per Payday = Monthly Gov Deduction ÷ 2</strong></span>
+        <span style="margin-left:auto;font-family:var(--mono);font-weight:700">Total per Payday: <span style="color:var(--blue,#1B3FA0)">${money(totalPerPay)}</span></span>
+      </div>
+
+      <!-- Cards grid -->
+      <div style="flex:1;overflow:auto;padding:18px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:24px">
+          ${cardHTML}
+        </div>
+
+        <!-- Semi-monthly formula table -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;max-width:700px">
+          <div style="padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--border);font-weight:700;font-size:12px;color:var(--text)">
+            📊 Semi-Monthly Deduction Summary
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead>
+              <tr style="background:var(--bg3)">
+                <th style="padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);border-bottom:1px solid var(--border)">Deduction</th>
+                <th style="padding:8px 12px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);border-bottom:1px solid var(--border)">Monthly</th>
+                <th style="padding:8px 12px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);border-bottom:1px solid var(--border)">÷ 2</th>
+                <th style="padding:8px 12px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);border-bottom:1px solid var(--border)">Per Payday</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${deductionKeys.map(k => {
+                const monthly = globalAmounts[k] || 0;
+                const pp = perPayday(monthly, cfg[k]?.freq||'semi-monthly');
+                const enabled = cfg[k]?.enabled !== false;
+                return `<tr style="${enabled?'':'opacity:.45'}">
+                  <td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;color:${deductionColors[k]}">${deductionIcons[k]} ${deductionLabels[k]}</td>
+                  <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;font-family:var(--mono)">${money(monthly)}</td>
+                  <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:center;color:var(--text3)">÷ 2</td>
+                  <td style="padding:8px 12px;border-bottom:1px solid var(--border);text-align:right;font-family:var(--mono);font-weight:700;color:${deductionColors[k]}">${money(pp)}</td>
+                </tr>`;
+              }).join('')}
+              <tr style="background:var(--bg3)">
+                <td style="padding:8px 12px;font-weight:700;color:var(--text)">TOTAL</td>
+                <td style="padding:8px 12px;text-align:right;font-family:var(--mono);font-weight:700">${money(totalMonthly)}</td>
+                <td></td>
+                <td style="padding:8px 12px;text-align:right;font-family:var(--mono);font-weight:800;color:var(--red)">${money(totalPerPay)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Deduction history tracking info -->
+        <div style="margin-top:16px;background:var(--amber-bg);border:1px solid var(--amber);border-radius:var(--r2);padding:12px 16px;font-size:12px;color:var(--amber);max-width:700px">
+          <strong>Deduction Tracking:</strong> The system automatically records government deduction history per employee per payroll period under <code>deductionHistory/&lt;uid&gt;/&lt;year-month&gt;</code> to prevent duplicate deductions within the same month. Each payslip generation stamps the deduction amounts and period.
+        </div>
+      </div>
+    </div>`;
+  };
+
+  // ── Toggle enable/disable ────────────────────────────────────────────────
+  window.toggleGovMandate = async function(key, enabled) {
+    try {
+      await db.ref(`${GM_PATH}/${key}/enabled`).set(enabled);
+      toast(`${key.toUpperCase()} ${enabled?'enabled':'disabled'}`, enabled?'green':'amber');
+      renderGovMandatesPage();
+    } catch(e) { toast('Failed: '+e.message,'red'); }
+  };
+
+  // ── Open configure modal ────────────────────────────────────────────────
+  window.openGovMandateEdit = async function(key) {
+    const cfg = await loadGovMandateConfig();
+    const c = cfg[key] || GOV_MANDATE_DEFAULTS[key];
+    const labels = { sss:'SSS Premium', philhealth:'PhilHealth Premium', pagibig:'Pag-IBIG / HDMF', tax:'Withholding Tax' };
+    const label = labels[key] || key.toUpperCase();
+
+    // Build modal HTML dynamically
+    let existingModal = document.getElementById('gov-mandate-edit-modal');
+    if(!existingModal) {
+      existingModal = document.createElement('div');
+      existingModal.id = 'gov-mandate-edit-modal';
+      existingModal.className = 'modal-overlay hidden';
+      document.body.appendChild(existingModal);
+    }
+
+    existingModal.innerHTML = `
+    <div class="modal" style="width:520px;max-height:92vh">
+      <div class="modal-head">
+        <div class="modal-title">⚙ Configure — ${label}</div>
+        <button class="modal-close" onclick="closeModal('gov-mandate-edit-modal')">✕</button>
+      </div>
+      <div class="modal-body" style="padding:16px 20px">
+        <input type="hidden" id="gm-edit-key" value="${key}">
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Status</label>
+            <select class="input" id="gm-enabled">
+              <option value="true" ${c.enabled!==false?'selected':''}>Enabled</option>
+              <option value="false" ${c.enabled===false?'selected':''}>Disabled</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Deduction Frequency</label>
+            <select class="input" id="gm-freq">
+              <option value="semi-monthly" ${(c.freq||'semi-monthly')==='semi-monthly'?'selected':''}>Semi-Monthly (÷2)</option>
+              <option value="monthly" ${c.freq==='monthly'?'selected':''}>Monthly (Full)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Employee Share Rate</label>
+            <input type="number" class="input" id="gm-emp-rate" value="${c.employeeRate||''}" placeholder="e.g. 0.05 for 5%" step="0.001" min="0" max="1">
+          </div>
+          <div class="form-row">
+            <label>Employer Share Rate</label>
+            <input type="number" class="input" id="gm-er-rate" value="${c.employerRate||''}" placeholder="e.g. 0.095 for 9.5%" step="0.001" min="0" max="1">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Effective Date</label>
+            <input type="date" class="input" id="gm-effective" value="${c.effectiveDate||''}">
+          </div>
+          <div class="form-row">
+            <label>Auto-Compute</label>
+            <select class="input" id="gm-auto">
+              <option value="true" ${c.autoCompute!==false?'selected':''}>Yes — Auto from salary</option>
+              <option value="false" ${c.autoCompute===false?'selected':''}>No — Manual entry only</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Manual Override</label>
+            <select class="input" id="gm-manual-override">
+              <option value="true" ${c.manualOverride!==false?'selected':''}>Allowed</option>
+              <option value="false" ${c.manualOverride===false?'selected':''}>Not allowed</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Exempt Employee Option</label>
+            <select class="input" id="gm-exempt">
+              <option value="true" ${c.exemptOption!==false?'selected':''}>Yes — can be exempted</option>
+              <option value="false" ${c.exemptOption===false?'selected':''}>No — mandatory for all</option>
+            </select>
+          </div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;font-size:11px;color:var(--text2);margin-top:4px">
+          <strong>Semi-Monthly Rule:</strong> If frequency is Semi-Monthly, each payday deduction = Monthly Amount ÷ 2.<br>
+          Employee contribution fields in Salary Setup store the <em>monthly</em> amount; the system automatically halves it per payday.
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" onclick="closeModal('gov-mandate-edit-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveGovMandateEdit()">💾 Save Configuration</button>
+      </div>
+    </div>`;
+
+    showModal('gov-mandate-edit-modal');
+  };
+
+  window.saveGovMandateEdit = async function() {
+    const key = document.getElementById('gm-edit-key').value;
+    const cfg = await loadGovMandateConfig();
+    const updated = {
+      ...cfg[key],
+      enabled:        document.getElementById('gm-enabled').value === 'true',
+      freq:           document.getElementById('gm-freq').value,
+      employeeRate:   parseFloat(document.getElementById('gm-emp-rate').value) || cfg[key].employeeRate,
+      employerRate:   parseFloat(document.getElementById('gm-er-rate').value)  || cfg[key].employerRate,
+      effectiveDate:  document.getElementById('gm-effective').value,
+      autoCompute:    document.getElementById('gm-auto').value === 'true',
+      manualOverride: document.getElementById('gm-manual-override').value === 'true',
+      exemptOption:   document.getElementById('gm-exempt').value === 'true',
+    };
+    try {
+      await db.ref(`${GM_PATH}/${key}`).update(updated);
+      toast('Configuration saved','green');
+      closeModal('gov-mandate-edit-modal');
+      renderGovMandatesPage();
+    } catch(e) { toast('Save failed: '+e.message,'red'); }
+  };
+
+  // ── Open Global Monthly Amounts modal ───────────────────────────────────
+  window.openGlobalMandateAmounts = async function() {
+    let globalAmounts = {};
+    try {
+      const snap = await db.ref(GM_PATH+'/globalMonthlyAmounts').once('value');
+      globalAmounts = snap.val() || {};
+    } catch(e) {}
+
+    let modal = document.getElementById('gov-global-amounts-modal');
+    if(!modal) { modal = document.createElement('div'); modal.id='gov-global-amounts-modal'; modal.className='modal-overlay hidden'; document.body.appendChild(modal); }
+
+    const keys = ['sss','philhealth','pagibig','tax'];
+    const labels = { sss:'SSS Monthly (Employee Share)', philhealth:'PhilHealth Monthly (Employee Share)', pagibig:'Pag-IBIG Monthly (Employee Share)', tax:'Withholding Tax Monthly' };
+
+    modal.innerHTML = `
+    <div class="modal" style="width:480px">
+      <div class="modal-head">
+        <div class="modal-title">🌐 Global Government Deduction Amounts</div>
+        <button class="modal-close" onclick="closeModal('gov-global-amounts-modal')">✕</button>
+      </div>
+      <div class="modal-body" style="padding:16px 20px">
+        <div style="background:var(--amber-bg);border:1px solid var(--amber);border-radius:var(--r);padding:9px 12px;font-size:11px;color:var(--amber);margin-bottom:14px">
+          These are <strong>reference/display amounts</strong> for the Government Mandates page summary. Individual employee amounts are set in Salary Setup. The per-payday column is always Monthly ÷ 2 for semi-monthly payroll.
+        </div>
+        ${keys.map(k => `
+        <div class="form-row" style="margin-bottom:10px">
+          <label>${labels[k]}</label>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="number" class="input" id="gga-${k}" value="${globalAmounts[k]||''}" placeholder="0.00" step="0.01" min="0" style="flex:1" oninput="updateGgaPerPay('${k}')">
+            <div style="min-width:130px;text-align:right;font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--green-bg);border-radius:var(--r);padding:6px 10px">
+              Per Payday: <strong id="gga-pp-${k}">₱ ${fmt2((globalAmounts[k]||0)/2)}</strong>
+            </div>
+          </div>
+        </div>`).join('')}
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" onclick="closeModal('gov-global-amounts-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveGlobalMandateAmounts()">💾 Save</button>
+      </div>
+    </div>`;
+
+    showModal('gov-global-amounts-modal');
+  };
+
+  window.updateGgaPerPay = function(k) {
+    const v = parseFloat(document.getElementById('gga-'+k)?.value)||0;
+    const el = document.getElementById('gga-pp-'+k);
+    if(el) el.textContent = `₱ ${fmt2(v/2)}`;
+  };
+
+  window.saveGlobalMandateAmounts = async function() {
+    const keys = ['sss','philhealth','pagibig','tax'];
+    const amounts = {};
+    keys.forEach(k => { amounts[k] = parseFloat(document.getElementById('gga-'+k)?.value)||0; });
+    try {
+      await db.ref(GM_PATH+'/globalMonthlyAmounts').set(amounts);
+      toast('Global amounts saved','green');
+      closeModal('gov-global-amounts-modal');
+      renderGovMandatesPage();
+    } catch(e) { toast('Save failed: '+e.message,'red'); }
+  };
+
+  // ── Hook: when Gov Mandates page is shown ───────────────────────────────
+  const _origShowPage = window.showPage;
+  if(typeof _origShowPage === 'function') {
+    window.showPage = function(page) {
+      _origShowPage.apply(this, arguments);
+      if(page === 'gov-mandates') {
+        setTimeout(renderGovMandatesPage, 80);
+      }
+    };
+  }
+
+  // ── Deduction History Tracking ──────────────────────────────────────────
+  // Records per employee per payroll month to prevent duplicate deductions.
+  window.recordDeductionHistory = async function(uid, periodStart, periodEnd, deductions) {
+    if(!uid || !periodStart) return;
+    const yearMonth = periodStart.substring(0,7); // YYYY-MM
+    try {
+      const historyKey = periodStart + '_to_' + periodEnd;
+      await db.ref(`deductionHistory/${uid}/${yearMonth}/${historyKey}`).set({
+        periodStart, periodEnd,
+        sss:        deductions.sss        || 0,
+        philhealth: deductions.philhealth || 0,
+        pagibig:    deductions.pagibig    || 0,
+        tax:        deductions.tax        || 0,
+        total:      deductions.total      || 0,
+        recordedAt: Date.now()
+      });
+    } catch(e) { console.warn('[DeductionHistory] Failed to record:', e.message); }
+  };
+
+  // Check if deduction already applied for this period
+  window.checkDeductionDuplicate = async function(uid, periodStart, periodEnd) {
+    if(!uid || !periodStart) return false;
+    const yearMonth = periodStart.substring(0,7);
+    const historyKey = periodStart + '_to_' + periodEnd;
+    try {
+      const snap = await db.ref(`deductionHistory/${uid}/${yearMonth}/${historyKey}`).once('value');
+      return snap.exists();
+    } catch(e) { return false; }
+  };
+
+  // ── Enhanced autoComputeGovDeductions: show per-payday breakdown ────────
+  const _origAutoCompute = window.autoComputeGovDeductions;
+  window.autoComputeGovDeductions = function(showNotice=false) {
+    const result = _origAutoCompute ? _origAutoCompute(showNotice) : null;
+    // Update per-payday breakdown preview in salary modal
+    const basic = parseFloat(document.getElementById('sal-basic')?.value)||0;
+    const freq  = document.getElementById('sal-freq')?.value || 'semi-monthly';
+    const ppPreview = document.getElementById('gov-perpayday-preview');
+    const ppRows    = document.getElementById('gov-perpayday-rows');
+    if(!ppPreview || !ppRows || basic <= 0) return result;
+
+    const d = window.computeGovDeductions ? window.computeGovDeductions(basic, freq) : null;
+    if(!d) return result;
+
+    const periods = freq==='monthly'?1:freq==='weekly'?4:2;
+    const freqLabel = freq==='monthly'?'Monthly':freq==='weekly'?'Weekly':'Semi-Monthly (÷2)';
+
+    ppRows.innerHTML = `
+      <span>SSS: <strong>₱${fmt2(d.sssMonthly)}/mo</strong> → <strong>₱${fmt2(d.sssMonthly/periods)}</strong> per payday</span><br>
+      <span>PhilHealth: <strong>₱${fmt2(d.philhealthMonthly)}/mo</strong> → <strong>₱${fmt2(d.philhealthMonthly/periods)}</strong> per payday</span><br>
+      <span>Pag-IBIG: <strong>₱${fmt2(d.pagibigMonthly)}/mo</strong> → <strong>₱${fmt2(d.pagibigMonthly/periods)}</strong> per payday</span><br>
+      <span>Tax: <strong>₱${fmt2(d.taxMonthly)}/mo</strong> → <strong>₱${fmt2(d.taxMonthly/periods)}</strong> per payday</span>`;
+    ppPreview.style.display = 'block';
+    return result;
+  };
+
+  // Also update per-payday when amounts are manually typed
+  ['sal-sss','sal-philhealth','sal-pagibig','sal-tax','sal-freq'].forEach(id => {
+    document.addEventListener('change', function(e) {
+      if(e.target && e.target.id === id) updateSalModalPerPay();
+    });
+    document.addEventListener('input', function(e) {
+      if(e.target && e.target.id === id) updateSalModalPerPay();
+    });
+  });
+
+  function updateSalModalPerPay() {
+    const freq = document.getElementById('sal-freq')?.value || 'semi-monthly';
+    const periods = freq==='monthly'?1:freq==='weekly'?4:2;
+    const sss  = parseFloat(document.getElementById('sal-sss')?.value)||0;
+    const ph   = parseFloat(document.getElementById('sal-philhealth')?.value)||0;
+    const pi   = parseFloat(document.getElementById('sal-pagibig')?.value)||0;
+    const tax  = parseFloat(document.getElementById('sal-tax')?.value)||0;
+    const ppPreview = document.getElementById('gov-perpayday-preview');
+    const ppRows    = document.getElementById('gov-perpayday-rows');
+    if(!ppPreview || !ppRows) return;
+    if(sss+ph+pi+tax === 0) { ppPreview.style.display='none'; return; }
+    ppRows.innerHTML = `
+      <span>SSS Monthly: <strong>₱${fmt2(sss)}</strong> → Per Payday: <strong>₱${fmt2(sss/periods)}</strong></span><br>
+      <span>PhilHealth Monthly: <strong>₱${fmt2(ph)}</strong> → Per Payday: <strong>₱${fmt2(ph/periods)}</strong></span><br>
+      <span>Pag-IBIG Monthly: <strong>₱${fmt2(pi)}</strong> → Per Payday: <strong>₱${fmt2(pi/periods)}</strong></span><br>
+      <span>Tax Monthly: <strong>₱${fmt2(tax)}</strong> → Per Payday: <strong>₱${fmt2(tax/periods)}</strong></span>`;
+    ppPreview.style.display = 'block';
+  }
+
+  // ── Export CSV: add monthly + per-payday columns ────────────────────────
+  const _origExportCSV = window.exportPayrollTableCSVV46;
+  window.exportPayrollTableCSVV46 = function() {
+    const rows = window.payrollRowsV46 || [];
+    if(!rows.length) { toast('No data to export','amber'); return; }
+
+    const si = u => u.salaryInfo || {};
+    const allow = s => (s.transAllowance||0)+(s.mealAllowance||0)+(s.otherAllowance||0);
+    const ded = s => (s.sssContrib||0)+(s.philhealthContrib||0)+(s.pagibigContrib||0)+(s.withholdingTax||0)+(s.otherDeduction||0);
+    const perPay = (monthly, freq) => { const p=freq==='monthly'?1:freq==='weekly'?4:2; return Math.round((monthly/p)*100)/100; };
+    const at = ts => ts ? new Date(ts).toLocaleDateString('en-PH') : '';
+    const flow = u => {
+      const s = si(u); const sa = u.salaryAgreements || {};
+      if(!s.basicMonthly) return {label:'Missing Salary'};
+      if(Object.values(sa).some(a=>a.status==='agreed')) return {label:'Acknowledged'};
+      if(Object.values(sa).some(a=>a.status==='pending')) return {label:'Offer Pending'};
+      return {label:'Ready'};
+    };
+
+    const header = [
+      'Employee','Employee ID','Department','Position','Shift','Pay Frequency','Payroll Flow',
+      'Basic Monthly',
+      'SSS Monthly','SSS Per Payday',
+      'PhilHealth Monthly','PhilHealth Per Payday',
+      'Pag-IBIG Monthly','Pag-IBIG Per Payday',
+      'Tax Monthly','Tax Per Payday',
+      'Other Deduction',
+      'Total Gov Deductions (Monthly)','Total Gov Deductions (Per Payday)',
+      'Allowances','Updated By','Updated At'
+    ];
+
+    const q = v => `"${String(v??'').replace(/"/g,'""')}"`;
+    const body = rows.map(u => {
+      const s = si(u);
+      const freq = s.payFrequency || 'semi-monthly';
+      const sssM = s.sssContrib || 0;
+      const phM  = s.philhealthContrib || 0;
+      const piM  = s.pagibigContrib || 0;
+      const taxM = s.withholdingTax || 0;
+      const sssPP = perPay(sssM, freq);
+      const phPP  = perPay(phM,  freq);
+      const piPP  = perPay(piM,  freq);
+      const taxPP = perPay(taxM, freq);
+      const totalM  = sssM + phM + piM + taxM;
+      const totalPP = sssPP + phPP + piPP + taxPP;
+      return [
+        u.name||'', u.employeeId||'', u.department||'', u.position||'', u.shiftCode||'',
+        freq, flow(u).label, s.basicMonthly||0,
+        sssM, sssPP, phM, phPP, piM, piPP, taxM, taxPP,
+        s.otherDeduction||0, totalM, totalPP,
+        allow(s), s.updatedBy||'', at(s.updatedAt)
+      ].map(q).join(',');
+    });
+
+    const csv = [header.map(q).join(','), ...body].join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'payroll_with_gov_deductions.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast('CSV exported with government deduction columns');
+  };
+
+  // ── Hook into generatePayslip to record deduction history ────────────────
+  const _origGenPayslip = window.generatePayslip;
+  window.generatePayslip = async function() {
+    // Call original
+    const uid   = document.getElementById('gen-payslip-uid')?.value;
+    const start = document.getElementById('gen-ps-start')?.value;
+    const end   = document.getElementById('gen-ps-end')?.value;
+
+    if(typeof _origGenPayslip === 'function') {
+      await _origGenPayslip.apply(this, arguments);
+    }
+
+    // Record deduction history after generation
+    if(uid && start && end) {
+      try {
+        const d = await computePayslipData(uid, start, end);
+        if(d) {
+          await window.recordDeductionHistory(uid, start, end, {
+            sss: d.perPaySss, philhealth: d.perPayPhilhealth,
+            pagibig: d.perPayPagibig, tax: d.perPayTax,
+            total: d.totalDeductions
+          });
+        }
+      } catch(e) {}
+    }
+  };
+
+  // ── Add gov-mandates to permissions system ──────────────────────────────
+  // Ensure gov-mandates page works for admin/manager roles
+  const _origShowPage2 = window.showPage;
+  // Already patched above, do not double-patch
+
+  // ── Register gov-mandates page in ALL_PERM_KEYS if not present ───────────
+  if(window.ALL_PERM_KEYS && !window.ALL_PERM_KEYS.includes('gov-mandates')) {
+    window.ALL_PERM_KEYS.push('gov-mandates');
+  }
+  if(window.PERM_LABELS) window.PERM_LABELS['gov-mandates'] = 'Government Mandates';
+
+  console.log('[GovMandates] Module loaded ✓');
+})();
+</script>
+
+</body>`);
   w.document.close();
 }
 
@@ -8864,6 +9798,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
+// @ts-nocheck
 // ==================== IMPORT EMPLOYEES FROM EXCEL (FULL FIELDS) ====================
 let importRows = [];
 
@@ -9850,6 +10785,7 @@ window.createReplacementRequestFromOld = async function(oldReq, changes={}){
 
 <!-- ===== BULK PAYSLIP PREVIEW + VIEW FILE PATCH FINAL ===== -->
 <script>
+// @ts-nocheck
 (function(){
   if(window.__bulkPayslipPreviewFinalPatch) return;
   window.__bulkPayslipPreviewFinalPatch = true;
@@ -9870,7 +10806,7 @@ window.createReplacementRequestFromOld = async function(oldReq, changes={}){
   }
   window.resetBulkPayslipPreview=function(){_bulkPreview=null;const p=document.getElementById('bulk-ps-preview'),b=document.getElementById('bulk-ps-preview-body'),s=document.getElementById('bulk-ps-preview-summary'),g=document.getElementById('bulk-ps-btn');if(p)p.style.display='none';if(s){s.style.display='none';s.innerHTML='';}if(b)b.innerHTML='<tr><td colspan="8" style="text-align:center;padding:22px;color:var(--text3)">Click Preview Payroll first.</td></tr>';if(g){g.disabled=true;g.textContent='⚡ Generate All';}};
   async function employees(status){let rows=(window.allPayrollEmployees?.length?window.allPayrollEmployees:window.payrollRowsV46?.length?window.payrollRowsV46:[]).filter(u=>!u.deleted&&u.active!==false);if(!rows.length){if(status)status.textContent='Loading employees from Firebase…';const snap=await db.ref('users').once('value');const loaded=[];snap.forEach(ch=>{const u=ch.val()||{};if(!u.deleted)loaded.push({uid:ch.key,...u});});window.allPayrollEmployees=loaded;window.payrollRowsV46=loaded;rows=loaded.filter(u=>!u.deleted&&u.active!==false);}return rows;}
-  function payload(uid,d,start,end,remarks){return {uid,employeeName:d.u.name||'',employeeId:d.u.employeeId||'',department:d.u.department||'',shiftCode:d.u.shiftCode||'',periodStart:start,periodEnd:end,remarks,payFrequency:d.si.payFrequency||'semi-monthly',basicMonthly:d.si.basicMonthly,periodBasic:d.periodBasic,transAllowance:d.si.transAllowance||0,mealAllowance:d.si.mealAllowance||0,otherAllowance:d.si.otherAllowance||0,otherAllowanceLabel:d.si.otherAllowanceLabel||'',otPay:d.otPay,totalOTHours:d.totalOTHours,lateDeduct:d.lateDeduct,totalLateMin:d.totalLateMin,utDeduct:d.utDeduct,totalUTMin:d.totalUTMin,absDeduct:d.absDeduct,absenceDays:d.absenceDays,leaveDays:d.leaveDays,grossEarnings:d.grossEarnings,hasAdjustments:d.hasAdjustments||false,adjDetails:d.adjDetails||[],adjOTHours:d.adjOTHours||0,adjLateMin:d.adjLateMin||0,adjUTMin:d.adjUTMin||0,adjAbsenceDays:d.adjAbsenceDays||0,adjLeaveDays:d.adjLeaveDays||0,sssContrib:d.si.sssContrib||0,philhealthContrib:d.si.philhealthContrib||0,pagibigContrib:d.si.pagibigContrib||0,withholdingTax:d.si.withholdingTax||0,otherDeduction:d.si.otherDeduction||0,otherDeductionLabel:d.si.otherDeductionLabel||'',totalDeductions:d.totalDeductions,netPay:d.netPay,generatedAt:Date.now(),generatedBy:currentUserData?.name||'',isBulkGenerated:true};}
+  function payload(uid,d,start,end,remarks){return {uid,employeeName:d.u.name||'',employeeId:d.u.employeeId||'',department:d.u.department||'',shiftCode:d.u.shiftCode||'',periodStart:start,periodEnd:end,remarks,payFrequency:d.si.payFrequency||'semi-monthly',basicMonthly:d.si.basicMonthly,periodBasic:d.periodBasic,transAllowance:d.si.transAllowance||0,mealAllowance:d.si.mealAllowance||0,otherAllowance:d.si.otherAllowance||0,otherAllowanceLabel:d.si.otherAllowanceLabel||'',otPay:d.otPay,totalOTHours:d.totalOTHours,lateDeduct:d.lateDeduct,totalLateMin:d.totalLateMin,utDeduct:d.utDeduct,totalUTMin:d.totalUTMin,absDeduct:d.absDeduct,absenceDays:d.absenceDays,leaveDays:d.leaveDays,grossEarnings:d.grossEarnings,hasAdjustments:d.hasAdjustments||false,adjDetails:d.adjDetails||[],adjOTHours:d.adjOTHours||0,adjLateMin:d.adjLateMin||0,adjUTMin:d.adjUTMin||0,adjAbsenceDays:d.adjAbsenceDays||0,adjLeaveDays:d.adjLeaveDays||0,sssContrib:d.perPaySss,philhealthContrib:d.perPayPhilhealth,pagibigContrib:d.perPayPagibig,withholdingTax:d.perPayTax,sssMonthly:d.si.sssContrib||0,philhealthMonthly:d.si.philhealthContrib||0,pagibigMonthly:d.si.pagibigContrib||0,withholdingTaxMonthly:d.si.withholdingTax||0,otherDeduction:d.perPayOtherDed,otherDeductionLabel:d.si.otherDeductionLabel||'',totalDeductions:d.totalDeductions,netPay:d.netPay,generatedAt:Date.now(),generatedBy:currentUserData?.name||'',isBulkGenerated:true};}
   function render(rows){const body=document.getElementById('bulk-ps-preview-body'),sum=document.getElementById('bulk-ps-preview-summary'),prev=document.getElementById('bulk-ps-preview');if(!body||!sum||!prev)return;const ready=rows.filter(r=>r.status==='ready'),skip=rows.filter(r=>r.status==='skipped'),err=rows.filter(r=>r.status==='error'),total=ready.reduce((s,r)=>s+Number(r.data?.netPay||0),0);sum.style.display='block';sum.innerHTML=`<span class="badge badge-green">Ready ${ready.length}</span> <span class="badge badge-amber">Skipped ${skip.length}</span> <span class="badge badge-red">Errors ${err.length}</span> <span style="margin-left:8px;font-family:var(--mono);font-weight:700;color:var(--accent)">Total Net: ${money(total)}</span>`;prev.style.display='block';body.innerHTML=rows.length?rows.map((r,i)=>{const u=r.employee||{},d=r.data||{},badge=r.status==='ready'?'<span class="badge badge-green">Ready</span>':r.status==='skipped'?'<span class="badge badge-amber">No Salary</span>':'<span class="badge badge-red">Error</span>',note=r.message?`<div style="font-size:10px;color:${r.status==='error'?'var(--red)':'var(--text3)'}">${esc(r.message)}</div>`:'';return `<tr><td style="text-align:center;color:var(--text3)">${i+1}</td><td><div style="font-weight:700">${esc(u.name||u.email||r.uid)}</div><div style="font-size:10px;color:var(--text3)">${esc(u.employeeId||'')} ${u.department?'· '+esc(u.department):''}</div>${note}</td><td style="text-align:center">${badge}</td><td style="text-align:right;font-family:var(--mono)">${r.status==='ready'?money(d.periodBasic):'—'}</td><td style="text-align:right;font-family:var(--mono)">${r.status==='ready'?money(d.grossEarnings):'—'}</td><td style="text-align:right;font-family:var(--mono);color:${r.status==='ready'?'var(--red)':'var(--text3)'}">${r.status==='ready'?money(d.totalDeductions):'—'}</td><td style="text-align:right;font-family:var(--mono);font-weight:800;color:${r.status==='ready'?'var(--accent)':'var(--text3)'}">${r.status==='ready'?money(d.netPay):'—'}</td><td style="text-align:center">${r.status==='ready'&&d.hasAdjustments?`<span class="badge badge-purple">${(d.adjDetails||[]).length} adj</span>`:'—'}</td></tr>`;}).join(''):'<tr><td colspan="8" style="text-align:center;padding:22px;color:var(--text3)">No active employees found.</td></tr>';}
   window.previewBulkPayslips=async function(){ensureUI();const start=document.getElementById('bulk-ps-start').value,end=document.getElementById('bulk-ps-end').value;if(!start||!end){toast('Select pay period start and end before preview','amber');return;}if(start>end){toast('Pay period start cannot be after end','amber');return;}const p1=document.getElementById('bulk-ps-preview-btn'),p2=document.getElementById('bulk-ps-preview-foot-btn'),gen=document.getElementById('bulk-ps-btn'),prog=document.getElementById('bulk-ps-progress'),log=document.getElementById('bulk-ps-log'),bar=document.getElementById('bulk-ps-bar'),status=document.getElementById('bulk-ps-status');if(p1){p1.disabled=true;p1.textContent='⏳ Previewing…';}if(p2)p2.disabled=true;if(gen)gen.disabled=true;if(prog)prog.style.display='block';if(log)log.innerHTML='';if(bar)bar.style.width='0%';try{const emps=await employees(status),rows=[];for(let i=0;i<emps.length;i++){const u=emps[i];try{const d=await computePayslipData(u.uid,start,end);rows.push(d?{uid:u.uid,employee:u,status:'ready',data:d}:{uid:u.uid,employee:u,status:'skipped',message:'No salary configured'});}catch(e){rows.push({uid:u.uid,employee:u,status:'error',message:e.message||'Computation failed'});}if(bar)bar.style.width=Math.round(((i+1)/Math.max(emps.length,1))*100)+'%';if(status)status.textContent=`Previewing ${i+1} / ${emps.length} employees…`;}_bulkPreview={start,end,rows};render(rows);const ready=rows.filter(r=>r.status==='ready').length;if(gen){gen.disabled=ready===0;gen.textContent=ready?`⚡ Generate ${ready} Ready`:'⚡ Generate All';}if(status)status.textContent=`Preview ready — ${ready} ready · ${rows.filter(r=>r.status==='skipped').length} skipped · ${rows.filter(r=>r.status==='error').length} errors`;toast(`Preview complete: ${ready} ready for generation`,ready?'green':'amber');}catch(e){toast('Bulk preview failed: '+e.message,'red');}finally{if(p1){p1.disabled=false;p1.textContent='👁 Preview Payroll';}if(p2)p2.disabled=false;}};
   window.openBulkPayslipModal=function(){if(typeof _openBulk==='function')_openBulk();else showModal('bulk-payslip-modal');ensureUI();resetBulkPayslipPreview();};
@@ -9878,6 +10814,120 @@ window.createReplacementRequestFromOld = async function(oldReq, changes={}){
 })();
 </script>
 
+
+
+<!-- ===== MY PAYSLIP LOADING FIX v47 ===== -->
+<script>
+// @ts-nocheck
+(function(){
+  'use strict';
+  if(window.__myPayslipLoadingFixV47) return;
+  window.__myPayslipLoadingFixV47 = true;
+
+  function psToast(msg,type){
+    if(typeof window.toast === 'function') window.toast(msg,type || 'amber');
+    else console.warn('[MyPayslip]', msg);
+  }
+  function psMoney(v){
+    return '₱ ' + Number(v || 0).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function psDate(s){
+    if(!s) return '—';
+    try { return new Date(String(s) + 'T12:00:00').toLocaleDateString('en-PH', { month:'short', day:'numeric', year:'numeric' }); }
+    catch(e){ return String(s); }
+  }
+  function psEscape(v){
+    return String(v ?? '').replace(/[&<>'"]/g, function(ch){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'})[ch];
+    });
+  }
+  async function psWaitForUid(maxMs){
+    const started = Date.now();
+    while(Date.now() - started < (maxMs || 5000)){
+      const uid = window.currentUserData?.uid || window.auth?.currentUser?.uid || window.currentUser?.uid || '';
+      if(uid) return uid;
+      await new Promise(function(resolve){ setTimeout(resolve, 150); });
+    }
+    return window.currentUserData?.uid || window.auth?.currentUser?.uid || window.currentUser?.uid || '';
+  }
+  function psWithTimeout(promise, ms, label){
+    let timer;
+    const timeout = new Promise(function(_, reject){
+      timer = setTimeout(function(){ reject(new Error((label || 'Request') + ' timed out. Please check your Firebase connection/rules.')); }, ms || 12000);
+    });
+    return Promise.race([promise, timeout]).finally(function(){ clearTimeout(timer); });
+  }
+  function psRenderEmpty(list){
+    list.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text3)">No payslips found yet.<br><span style="font-size:12px">Your manager will generate payslips here.</span></div>';
+  }
+  function psRenderError(list, msg){
+    list.innerHTML = '<div style="text-align:center;padding:46px 20px;color:var(--red)">' +
+      '<div style="font-weight:700;margin-bottom:6px">Unable to load payslips</div>' +
+      '<div style="font-size:12px;color:var(--text2);margin-bottom:14px">' + psEscape(msg || 'Unknown error') + '</div>' +
+      '<button class="btn btn-primary btn-sm" onclick="loadMyPayslips()">Retry</button>' +
+      '</div>';
+  }
+  function psRenderList(list, uid, items){
+    if(!items.length){ psRenderEmpty(list); return; }
+    items.sort(function(a,b){ return Number(b.generatedAt || 0) - Number(a.generatedAt || 0); });
+    list.innerHTML = items.map(function(p){
+      const payFreq = String(p.payFrequency || '').replace('-', ' ');
+      const remarks = p.remarks ? '<div style="font-size:11px;color:var(--text3);margin-top:2px">' + psEscape(p.remarks) + '</div>' : '';
+      return '<div class="payslip-list-item" onclick="viewPayslip(\'' + psEscape(uid) + '\',\'' + psEscape(p.key) + '\')">' +
+        '<div style="flex:1;min-width:0">' +
+          '<div style="font-weight:600;font-size:14px">' + psDate(p.periodStart) + ' — ' + psDate(p.periodEnd) + '</div>' +
+          '<div style="font-size:12px;color:var(--text2);margin-top:2px;text-transform:capitalize">' + psEscape(payFreq || 'payslip') + ' payslip</div>' + remarks +
+        '</div>' +
+        '<div style="text-align:right;flex-shrink:0">' +
+          '<div class="payslip-period-badge">' + psMoney(p.netPay) + '</div>' +
+          '<div style="font-size:10px;color:var(--text3);margin-top:5px">Net Pay</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  window.loadMyPayslips = async function loadMyPayslips(){
+    const list = document.getElementById('my-payslip-list');
+    if(!list) return;
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3)">Loading payslips...</div>';
+
+    try{
+      const uid = await psWaitForUid(5000);
+      if(!uid){
+        list.innerHTML = '<div style="text-align:center;padding:50px 20px;color:var(--text3)">Account is still loading.<br><button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="loadMyPayslips()">Retry</button></div>';
+        return;
+      }
+      if(!window.db){ throw new Error('Firebase database is not ready yet.'); }
+
+      let snap;
+      try{
+        snap = await psWithTimeout(window.db.ref('payslips/' + uid).orderByChild('generatedAt').once('value'), 12000, 'Loading payslips');
+      }catch(indexOrRuleErr){
+        console.warn('[MyPayslip] Ordered query failed, retrying plain read:', indexOrRuleErr);
+        snap = await psWithTimeout(window.db.ref('payslips/' + uid).once('value'), 12000, 'Loading payslips');
+      }
+
+      const items = [];
+      if(snap && typeof snap.forEach === 'function'){
+        snap.forEach(function(c){ items.push(Object.assign({ key:c.key }, c.val() || {})); });
+      }
+      psRenderList(list, uid, items);
+    }catch(e){
+      console.error('[MyPayslip] Load failed:', e);
+      psRenderError(list, e && e.message ? e.message : e);
+      psToast('Payslip loading failed: ' + (e && e.message ? e.message : e), 'red');
+    }
+  };
+
+  // If the My Payslip page is already visible when this patch loads, reload it safely.
+  setTimeout(function(){
+    const panel = document.getElementById('page-my-payslip');
+    if(panel && panel.classList.contains('active')) window.loadMyPayslips();
+  }, 300);
+
+  console.log('[MyPayslip] Loading fix v47 loaded ✓');
+})();
+</script>
 </body>
 </html>
 <!-- SALARY COMPUTATION COMPATIBILITY MARKERS v46: sal-work-days sal-hours-day salaryComputationVersion grossMonthly netMonthly -->
